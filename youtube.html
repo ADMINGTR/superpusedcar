@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🚗 Super P Used Cars – YouTube Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .video-section {
+      margin-bottom: 40px;
+    }
+    .video-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .video-card {
+      width: 360px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .video-card iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 4px;
+    }
+    .video-info {
+      margin-top: 8px;
+    }
+    .share-btn {
+      margin-top: 5px;
+      display: inline-block;
+      background: #FF0000;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🚗 Super P Used Cars – Video Gallery</h1>
+
+<div class="video-section">
+  <h2>📌 3 Most Recent Videos</h2>
+  <div id="latest-videos" class="video-grid">Loading...</div>
+</div>
+
+<div class="video-section">
+  <h2>🔥 3 Most Viewed Videos</h2>
+  <div id="top-videos" class="video-grid">Loading...</div>
+</div>
+
+<script>
+  const API_KEY = 'AIzaSyBijehXSrv0r3QQAIo0Ryt7DboabKT2ZLU';
+  const CHANNEL_ID = 'UCewXwgUpA5rnfn94VGpvrdg';
+
+  // Load 3 Most Recent Videos
+  fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=6`)
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('latest-videos');
+      container.innerHTML = '';
+      let count = 0;
+      data.items.forEach(item => {
+        if (item.id.kind === "youtube#video" && count < 3) {
+          const videoId = item.id.videoId;
+          const title = item.snippet.title;
+          const videoCard = `
+            <div class="video-card">
+              <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+              <div class="video-info">
+                <strong>${title}</strong><br>
+                <a class="share-btn" href="https://www.youtube.com/watch?v=${videoId}" target="_blank">🔗 Share</a>
+              </div>
+            </div>`;
+          container.innerHTML += videoCard;
+          count++;
+        }
+      });
+    });
+
+  // Load 3 Most Viewed Videos (from latest 10)
+  fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=id&order=date&maxResults=10`)
+    .then(res => res.json())
+    .then(data => {
+      const videoIds = data.items.filter(item => item.id.kind === "youtube#video")
+                                 .map(item => item.id.videoId)
+                                 .join(',');
+      return fetch(`https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=snippet,statistics`);
+    })
+    .then(res => res.json())
+    .then(data => {
+      const sorted = data.items.sort((a, b) => b.statistics.viewCount - a.statistics.viewCount).slice(0, 3);
+      const container = document.getElementById('top-videos');
+      container.innerHTML = '';
+      sorted.forEach(video => {
+        const videoId = video.id;
+        const title = video.snippet.title;
+        const views = video.statistics.viewCount;
+        const videoCard = `
+          <div class="video-card">
+            <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+            <div class="video-info">
+              <strong>${title}</strong><br>
+              👁️ ${parseInt(views).toLocaleString()} views<br>
+              <a class="share-btn" href="https://www.youtube.com/watch?v=${videoId}" target="_blank">🔗 Share</a>
+            </div>
+          </div>`;
+        container.innerHTML += videoCard;
+      });
+    });
+</script>
+
+</body>
+</html>
