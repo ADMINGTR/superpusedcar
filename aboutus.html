@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Super P Used Cars</title>   
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /> 
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .onebox {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    header { position: relative; width: 100%; }
+    header img { width: 100%; height: 150px; display: block; }
+    #menu-btn {
+      position: absolute; top: 15px; left: 15px;
+      width: 35px; height: 30px;
+      cursor: pointer; z-index: 1001;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    #menu-btn span {
+      display: block; height: 4px;
+      background-color: #fff;
+      border-radius: 2px; transition: 0.3s;
+    }
+    #menu-btn.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    #menu-btn.open span:nth-child(2) { opacity: 0; }
+    #menu-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+    nav {
+      position: absolute; top: 60px; left: 15px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      display: none; flex-direction: column;
+      min-width: 150px; z-index: 1000;
+    }
+    nav.open { display: flex; }
+    nav a {
+      color: #fff; padding: 10px 15px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-weight: 600; font-size: 14px;
+    }
+    nav a:last-child { border-bottom: none; }
+    nav a:hover { background: rgba(255,255,255,0.15); }
+
+    main {
+      flex: 1; padding: 20px 25px;
+      font-size: 14px; color: #333; line-height: 1.5;
+    }
+    main h1 { font-size: 22px; margin-bottom: 15px; color: #222; }
+    main a { color: #007bff; text-decoration: none; font-weight: 600; }
+    main a:hover { text-decoration: underline; }
+
+    .about-inline {
+      display: inline-block;
+      max-width: 700px;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 20px;
+      vertical-align: top;
+    }
+
+    .map-embed {
+      display: inline-block;
+      margin: 20px;
+      vertical-align: top;
+    }
+    .map-embed iframe {
+      width: 300px;
+      height: 220px;
+      border: 0;
+    }
+
+    @media (max-width: 768px) {
+      .about-inline, .map-embed {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+      }
+      .map-embed iframe {
+        width: 100%;
+        height: 200px;
+      }
+    }
+
+    footer {
+      padding: 15px 25px;
+      background-color: #003366;
+      color: #eee;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .socials a.facebook { background-color: #3b5998; }
+    .socials a.tiktok { background-color: #000000; }
+    .socials a.youtube { background-color: #ff0000; }
+    .socials a.google { background-color: #4285F4; }
+    .socials a.line { background-color: #00c300; }
+    .socials a:hover {
+      filter: brightness(1.2);
+      transform: scale(1.1);
+    }
+
+    /* Flash Sale style */
+    .flash-sale {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff0000, #ff6600, #ff0000);
+      background-size: 200% 100%;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 8px 20px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      animation: flashAnimation 3s linear infinite;
+      box-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
+      user-select: none;
+      margin-bottom: 20px;
+      text-align: center;
+      text-decoration: none; /* ลบ underline ของ a */
+    }
+
+    @keyframes flashAnimation {
+      0% {
+        background-position: 0% 0%;
+        text-shadow: 0 0 5px #ff3300, 0 0 10px #ff3300;
+      }
+      50% {
+        background-position: 100% 0%;
+        text-shadow: 0 0 20px #ff6600, 0 0 30px #ff6600;
+      }
+      100% {
+        background-position: 0% 0%;
+        text-shadow: 0 0 5px #ff3300, 0 0 10px #ff3300;
+      }
+    }
+  </style>
+  <!-- Open Graph tags go here -->
+    <meta property="og:title" content="Super P Used Cars – Trusted Quality Used Cars in Bangkok | ซุปเปอร์ พี รถมือสองคุณภาพ เชื่อถือได้ กรุงเทพฯ" />
+    <meta property="og:description" content="Find your perfect pre-owned vehicle at Super P Used Cars. Quality checked, affordable, and ready to drive — your best choice for used cars in Bangkok! 
+    ค้นหารถมือสองคุณภาพที่ ซุปเปอร์ พี รถมือสอง เช็คคุณภาพแล้ว ราคาคุ้มค่า พร้อมใช้งาน — ตัวเลือกที่ดีที่สุดสำหรับรถมือสองในกรุงเทพฯ" />
+    <meta property="og:url" content="https://superpusedcar.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://superpusedcar.com/assets/images/og-image.jpg" />
+    <meta property="og:image:alt" content="Super P Used Cars logo and vehicles display | ซุปเปอร์ พี รถมือสอง โลโก้และรถยนต์โชว์" />
+</head>
+<body>
+  <div class="onebox">
+    <header>
+      <img src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Super P Used Cars Banner" />
+      <div id="menu-btn" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+          <nav id="menu">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="https://www.youtube.com/@super-p">วิดีโอ YouTube</a>
+        <a href="https://www.one2car.com/superp">In Stocks</a>
+      </nav>
+    </header>
+
+    <main>
+      <div style="text-align:center;">
+        <a href="https://www.one2car.com/dealer/superp" target="_blank" rel="noopener noreferrer" class="flash-sale">
+          Flash Sale! ลดราคาพิเศษวันนี้เท่านั้น
+        </a>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <section class="about-inline">
+          <h2>About Us</h2>
+          <p>
+            Super P Used Cars – ไม่ต้องเดาว่าคุณจะซื้ออะไร!<br>
+            มีคำถาม? โทรหา ป้อม: 081-619-6377
+          </p>
+          <p>
+            ⚡ <a href="https://lin.ee/2lnS5eZ" target="_blank">คลิกที่นี่สำหรับรูปเพิ่มเติม ที่ตั้ง และรายละเอียด</a><br>
+            ⚡ <a href="https://youtube.com/channel/UCewXwgUpA5rnfn94VGpvrdg" target="_blank">ชมรีวิวรถยนต์เพิ่มเติมของเราใน YouTube</a>
+          </p>
+          <p>
+            ด้วยประสบการณ์มากกว่า <strong>30 ปี</strong> ในธุรกิจรถมือสอง,<br>
+            เรายังคงมุ่งมั่นในการมอบคุณภาพและบริการที่ดีเยี่ยม
+          </p>
+        </section>
+
+        <section class="map-embed" aria-label="Google Maps Location">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.3012605605336!2d100.61430927602798!3d13.807106796380736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29a52ac1b8783%3A0x4700ec458563ddb9!2z4Lij4Liy4Liy4Lih4LiZ4LmI4Lie4Lij4LmM4Lij4Lih4LiZ4Liy4LmA4Lin4LiW4Lit4Liy4Lii4LmJ4LiX4LmB!5e0!3m2!1sth!2sth!4v1685892107462!5m2!1sth!2sth"
+            width="300" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+      </div>
+      <div style="text-align:center; margin-top: 10px;">
+        <a href="https://lin.ee/2lnS5eZ" target="_blank" style="font-weight:bold; font-size: 16px; text-decoration:none; color:#007bff;">
+          ติดต่อผ่าน LINE
+        </a>
+      </div>
+    </main>
+
+     <footer>
+      &copy; 2025 Super P Used Cars
+  <br />
+  ติดต่อสอบถาม:
+  <a href="tel:0816196377" style="color:#0af;">081-619-6377</a>
+      <div class="socials" aria-label="Social media links">
+       <a href="https://lin.ee/PYG28d3" target="_blank" rel="noopener" class="line" aria-label="LINE">
+  <i class="fab fa-line"></i>
+</a>
+
+<a href="https://www.facebook.com/super.p.used.car/" target="_blank" rel="noopener" class="facebook" aria-label="Facebook">
+  <i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.tiktok.com/@pomsuperp" target="_blank" rel="noopener" class="tiktok" aria-label="TikTok">
+  <i class="fab fa-tiktok"></i>
+</a>
+
+<a href="https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B8%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%9E%E0%B8%B5+%E0%B8%A3%E0%B8%96%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87/@13.9226693,100.4104015,17z/data=!4m6!3m5!1s0x30e28f0a75843061:0x3a2dd46bac422aea!8m2!3d13.9226641!4d100.4129764!16s%2Fg%2F1pzr1lvtk?entry=ttu" 
+   target="_blank" rel="noopener" class="map" aria-label="Google Maps">
+  <i class="fas fa-map-marker-alt"></i>
+</a>
+
+<a href="https://www.youtube.com/@super-p" target="_blank" rel="noopener" class="youtube" aria-label="YouTube">
+  <i class="fab fa-youtube"></i>
+</a>
+
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+
+    // Accessibility for keyboard
+    menuBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>

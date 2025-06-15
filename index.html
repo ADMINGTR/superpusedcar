@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Super P Used Cars</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .onebox {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    header { position: relative; width: 100%; }
+    header img { width: 100%; height: 150px ; display: block; }
+    #menu-btn {
+      position: absolute; top: 15px; left: 15px;
+      width: 35px; height: 30px;
+      cursor: pointer; z-index: 1001;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    #menu-btn span {
+      display: block; height: 4px;
+      background-color: #fff;
+      border-radius: 2px; transition: 0.3s;
+    }
+    #menu-btn.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    #menu-btn.open span:nth-child(2) { opacity: 0; }
+    #menu-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+    nav {
+      position: absolute; top: 60px; left: 15px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      display: none; flex-direction: column;
+      min-width: 150px; z-index: 1000;
+    }
+    nav.open { display: flex; }
+    nav a {
+      color: #fff; padding: 10px 15px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-weight: 600; font-size: 14px;
+    }
+    nav a:last-child { border-bottom: none; }
+    nav a:hover { background: rgba(255,255,255,0.15); }
+
+    main {
+      flex: 1; padding: 20px 25px;
+      font-size: 14px; color: #333; line-height: 1.5;
+    }
+    main h1 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #222;
+    }
+    main a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    main a:hover { text-decoration: underline; }
+    .promo-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #444;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .qr-section {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .qr-box { cursor: pointer; }
+    .qr-box img {
+      width: 100px; height: 100px;
+      transition: transform 0.3s;
+    }
+    .qr-box div {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 180px;
+      max-width: 90vw;
+      text-align: center;
+      position: relative;
+    }
+    .modal-content img {
+      width: 160px;
+      height: 160px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+    }
+    .close-btn:hover { color: #000; }
+
+    footer {
+      padding: 15px 25px;
+      background-color: #003366;
+      color: #eee;
+      font-size: 12px;
+      text-align: center;
+    }
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .socials a.facebook { background-color: #3b5998; }
+    .socials a.tiktok { background-color: #000000; }
+    .socials a.youtube { background-color: #ff0000; }
+    .socials a.google { background-color: #4285F4; }
+    .socials a.line { background-color: #00c300; }
+    .socials a:hover {
+      filter: brightness(1.2);
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 500px) {
+      .onebox { max-width: 200%; border-radius: 0; }
+      main { padding: 15px; font-size: 13px; }
+      nav { left: 10px; top: 55px; }
+      .socials a { width: 35px; height: 35px; font-size: 18px; }
+      .qr-box img { width: 80px; height: 80px; }
+    }
+	.blinking-flash-sale {
+  color: limegreen;
+  font-weight: bold;
+  font-size: 14px; /* reduced size */
+  text-transform: uppercase;
+  animation: blinkingGreen 1.5s infinite;
+  user-select: none;
+  text-align: center;
+}
+
+@keyframes blinkingGreen {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.socials a.map {
+  background-color: #34a853; /* Google Maps green */
+}
+
+
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<!-- Open Graph tags go here -->
+    <meta property="og:title" content="Super P Used Cars – Trusted Quality Used Cars in Bangkok | ซุปเปอร์ พี รถมือสองคุณภาพ เชื่อถือได้ กรุงเทพฯ" />
+    <meta property="og:description" content="Find your perfect pre-owned vehicle at Super P Used Cars. Quality checked, affordable, and ready to drive — your best choice for used cars in Bangkok! 
+    ค้นหารถมือสองคุณภาพที่ ซุปเปอร์ พี รถมือสอง เช็คคุณภาพแล้ว ราคาคุ้มค่า พร้อมใช้งาน — ตัวเลือกที่ดีที่สุดสำหรับรถมือสองในกรุงเทพฯ" />
+    <meta property="og:url" content="https://superpusedcar.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://superpusedcar.com/assets/images/og-image.jpg" />
+    <meta property="og:image:alt" content="Super P Used Cars logo and vehicles display | ซุปเปอร์ พี รถมือสอง โลโก้และรถยนต์โชว์" />
+</head>
+<body>
+  <div class="onebox">
+    <header>
+      <img src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Super P Used Cars Banner" />
+      <div id="menu-btn" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+      <nav id="menu">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="youtubeg.html">UG</a>
+        <a href="https://www.youtube.com/@super-p">วิดีโอ YouTube</a>
+        <a href="https://www.one2car.com/superp">In Stocks</a>
+      </nav>
+    </header>
+	<div class="socials" aria-label="Social media links">
+        <a href="https://lin.ee/PYG28d3" target="_blank" rel="noopener" class="line" aria-label="LINE">
+  <i class="fab fa-line"></i>
+</a>
+
+<a href="https://www.facebook.com/super.p.used.car/" target="_blank" rel="noopener" class="facebook" aria-label="Facebook">
+  <i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.tiktok.com/@pomsuperp" target="_blank" rel="noopener" class="tiktok" aria-label="TikTok">
+  <i class="fab fa-tiktok"></i>
+</a>
+
+<a href="https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B8%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%9E%E0%B8%B5+%E0%B8%A3%E0%B8%96%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87/@13.9226693,100.4104015,17z/data=!4m6!3m5!1s0x30e28f0a75843061:0x3a2dd46bac422aea!8m2!3d13.9226641!4d100.4129764!16s%2Fg%2F1pzr1lvtk?entry=ttu" 
+   target="_blank" rel="noopener" class="map" aria-label="Google Maps">
+  <i class="fas fa-map-marker-alt"></i>
+</a>
+
+<a href="https://www.youtube.com/@super-p" target="_blank" rel="noopener" class="youtube" aria-label="YouTube">
+  <i class="fab fa-youtube"></i>
+</a>
+
+      </div>
+
+    <main>
+      <h1>ยินดีต้อนรับสู่ Super P Used Cars!</h1>
+      <p>ลูกค้า Super P รถมือสอง ดูรถกันอย่างไร ไม่ต้องเจอรถ สงสัยโทรเลย</p>
+      <p>📞 ติดต่อ: <a href="tel:0816196377">ปอม 081-619-6377</a></p>
+      <p>⚡ <a href="https://maps.app.goo.gl/5h1drXSws6GPpYVb7" target="_blank" rel="noopener noreferrer">ขอรูปเพิ่ม Location ข้อมูลเพิ่มเติม</a></p>
+      <p>⚡ รีวิวรถยนต์เพิ่มเติม</p>
+      <p>มีประสบการณ์ในวงการรถมือสองกว่า 30 ปี</p>
+      <p>ดำเนินกิจการต่อไปเพื่อพัฒนารถยนต์มือสองที่ดีที่สุดให้กับลูกค้าทุกท่าน</p>
+      <p>📍 ที่ตั้ง Showroom: ถนนกาญจนาฯ บางบัวทอง นนทบุรี</p>
+      <p>🚘 จุดสังเกตใหญ่: ตรงข้าม Lotus ไทรน้อย</p>
+	  
+	  <div><iframe width="420" height="315" src="https://www.youtube.com/embed/tVFXA5GZwAs?si=jzI5FE5D4kW2AGIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+
+      <div class="blinking-flash-sale">
+  ** Flash Sale วันนี้! ลดราคาพิเศษเฉพาะรถที่ร่วมรายการ **
+</div>
+
+      <div class="qr-section">
+  <div class="qr-box" tabindex="0" role="button" aria-label="LINE QR Code">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lin.ee/PYG28d3" alt="LINE QR Code" loading="lazy" />
+    <div>LINE</div>
+  </div>
+  
+  <div class="qr-box" tabindex="0" role="button" aria-label="TikTok QR Code">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.tiktok.com/@pomsuperp" alt="TikTok QR Code" loading="lazy" />
+    <div>TikTok</div>
+  </div>
+  <div class="qr-box" tabindex="0" role="button" aria-label="YouTube QR Code">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.youtube.com/@super-p" alt="YouTube QR Code" loading="lazy" />
+    <div>YouTube</div>
+  </div>
+  <div class="qr-box" tabindex="0" role="button" aria-label="Google Maps QR Code">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" alt="Google Maps QR Code" loading="lazy" />
+    <div>Google Maps</div>
+  </div>
+</div>
+    </main>
+
+    <footer>
+      &copy; 2025 Super P Used Cars
+  <br />
+  ติดต่อสอบถาม:
+  <a href="tel:0816196377" style="color:#0af;">081-619-6377</a>
+      <div class="socials" aria-label="Social media links">
+        <a href="https://lin.ee/PYG28d3" target="_blank" rel="noopener" class="line" aria-label="LINE">
+  <i class="fab fa-line"></i>
+</a>
+
+<a href="https://www.facebook.com/super.p.used.car/" target="_blank" rel="noopener" class="facebook" aria-label="Facebook">
+  <i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.tiktok.com/@pomsuperp" target="_blank" rel="noopener" class="tiktok" aria-label="TikTok">
+  <i class="fab fa-tiktok"></i>
+</a>
+
+<a href="https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B8%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%9E%E0%B8%B5+%E0%B8%A3%E0%B8%96%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87/@13.9226693,100.4104015,17z/data=!4m6!3m5!1s0x30e28f0a75843061:0x3a2dd46bac422aea!8m2!3d13.9226641!4d100.4129764!16s%2Fg%2F1pzr1lvtk?entry=ttu" 
+   target="_blank" rel="noopener" class="map" aria-label="Google Maps">
+  <i class="fas fa-map-marker-alt"></i>
+</a>
+
+<a href="https://www.youtube.com/@super-p" target="_blank" rel="noopener" class="youtube" aria-label="YouTube">
+  <i class="fab fa-youtube"></i>
+</a>
+
+      </div>
+    </footer>
+  </div>
+
+  <div id="qrModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle" aria-describedby="qrModalDesc">
+    <div class="modal-content">
+      <button class="close-btn" aria-label="Close popup">&times;</button>
+      <h2 id="qrModalTitle">QR Code</h2>
+      <img src="index.html" alt="" id="qrModalImg" />
+      <p id="qrModalDesc">สแกน QR Code นี้เพื่อติดต่อหรือเยี่ยมชมหน้าเว็บที่เกี่ยวข้อง</p>
+    </div>
+  </div>
+
+  <script>
+    const qrBoxes = document.querySelectorAll('.qr-box');
+    const modal = document.getElementById('qrModal');
+    const modalImg = document.getElementById('qrModalImg');
+    const modalTitle = document.getElementById('qrModalTitle');
+    const modalDesc = document.getElementById('qrModalDesc');
+    const closeBtn = modal.querySelector('.close-btn');
+
+    qrBoxes.forEach(box => {
+      box.addEventListener('click', () => {
+        const img = box.querySelector('img');
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        modalTitle.textContent = img.alt;
+        modal.style.display = 'block';
+        // Set focus inside modal for accessibility
+        closeBtn.focus();
+      });
+      box.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          box.click();
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      // Return focus to last clicked QR box
+      qrBoxes.forEach(box => {
+        if (box.querySelector('img').src === modalImg.src) {
+          box.focus();
+        }
+      });
+    });
+
+    window.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Hamburger menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menuBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>

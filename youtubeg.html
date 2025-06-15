@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Super P Used Cars</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    /* All your CSS here */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .onebox {
+      width: 100%;
+      max-width: 960px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    header { position: relative; width: 100%; }
+    header img { width: 100%; height: 150px; display: block; }
+    #menu-btn {
+      position: absolute; top: 15px; left: 15px;
+      width: 35px; height: 30px;
+      cursor: pointer; z-index: 1001;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    #menu-btn span {
+      display: block; height: 4px;
+      background-color: #fff;
+      border-radius: 2px; transition: 0.3s;
+    }
+    #menu-btn.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    #menu-btn.open span:nth-child(2) { opacity: 0; }
+    #menu-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+    nav {
+      position: absolute; top: 60px; left: 15px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      display: none; flex-direction: column;
+      min-width: 150px; z-index: 1000;
+    }
+    nav.open { display: flex; }
+    nav a {
+      color: #fff; padding: 10px 15px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-weight: 600; font-size: 14px;
+    }
+    nav a:last-child { border-bottom: none; }
+    nav a:hover { background: rgba(255,255,255,0.15); }
+
+    main {
+      flex: 1; padding: 20px 25px;
+      font-size: 14px; color: #333; line-height: 1.5;
+    }
+    main h1 { font-size: 22px; margin-bottom: 15px; color: #222; }
+
+    .video-section {
+      margin-bottom: 40px;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    .video-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .video-card iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+      border-radius: 4px;
+    }
+    .video-info {
+      margin-top: 8px;
+    }
+    .share-btn {
+      margin-top: 5px;
+      display: inline-block;
+      background: #FF0000;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .share-btn i {
+      margin-right: 6px;
+    }
+    .comment-box {
+      margin-top: 10px;
+    }
+    .comment-box textarea {
+      width: 100%;
+      padding: 6px;
+      font-size: 13px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    .comment-box button {
+      margin-top: 5px;
+      padding: 5px 12px;
+      font-size: 13px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .comment-box button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      padding: 15px 25px;
+      background-color: #003366;
+      color: #eee;
+      font-size: 12px;
+      text-align: center;
+    }
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .socials a.facebook { background-color: #3b5998; }
+    .socials a.tiktok { background-color: #000000; }
+    .socials a.youtube { background-color: #ff0000; }
+    .socials a.google { background-color: #4285F4; }
+    .socials a.line { background-color: #00c300; }
+    .socials a:hover {
+      filter: brightness(1.2);
+      transform: scale(1.1);
+    }
+  </style>
+
+  <meta property="og:title" content="Super P Used Cars – Trusted Quality Used Cars in Bangkok | ซุปเปอร์ พี รถมือสองคุณภาพ เชื่อถือได้ กรุงเทพฯ" />
+  <meta property="og:description" content="Find your perfect pre-owned vehicle at Super P Used Cars. Quality checked, affordable, and ready to drive — your best choice for used cars in Bangkok!" />
+  <meta property="og:url" content="https://superpusedcar.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://superpusedcar.com/assets/images/og-image.jpg" />
+</head>
+
+<body>
+  <div class="onebox">
+    <header>
+      <img src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Super P Used Cars Banner" />
+      <div id="menu-btn" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+      <nav id="menu">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="youtubeg.html">UG</a>
+        <a href="https://www.youtube.com/@super-p">วิดีโอ YouTube</a>
+        <a href="https://www.one2car.com/superp">In Stocks</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>🎥 Super P Used Cars – Video Gallery</h1>
+      <div class="video-section">
+        <div id="video-grid" class="video-grid">Loading...</div>
+      </div>
+    </main>
+
+    <footer>
+      &copy; 2025 Super P Used Cars<br />
+      ติดต่อสอบถาม: <a href="tel:0816196377" style="color:#0af;">081-619-6377</a>
+      <div class="socials">
+        <a href="https://lin.ee/PYG28d3" class="line" target="_blank"><i class="fab fa-line"></i></a>
+        <a href="https://www.facebook.com/super.p.used.car/" class="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@pomsuperp" class="tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.google.com/maps/place/ซุปเปอร์+พี+รถมือสอง/" class="google" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+        <a href="https://www.youtube.com/@super-p" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const API_KEY = 'AIzaSyBijehXSrv0r3QQAIo0Ryt7DboabKT2ZLU';
+    const CHANNEL_ID = 'UCewXwgUpA5rnfn94VGpvrdg';
+
+    function renderVideoCard(videoId, title, views = null) {
+      return `
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen loading="lazy"></iframe>
+          <div class="video-info">
+            <strong>${title}</strong><br>
+            ${views ? `👁️ ${parseInt(views).toLocaleString()} views<br>` : ''}
+            <a class="share-btn" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">
+              <i class="fas fa-share-alt"></i> Share
+            </a>
+          </div>
+          <div class="comment-box">
+            <textarea rows="2" placeholder="💬 Add a comment..."></textarea>
+            <button onclick="alert('📝 Your comment was submitted!')">Post</button>
+          </div>
+        </div>`;
+    }
+
+    async function loadVideos() {
+      const grid = document.getElementById('video-grid');
+      grid.innerHTML = 'Loading videos...';
+
+      try {
+        // Fetch latest 50 videos to filter 25 actual videos
+        let res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=50`);
+        let data = await res.json();
+
+        // Filter only video items and take 25 videos max
+        const videoItems = data.items.filter(item => item.id.kind === "youtube#video").slice(0, 25);
+
+        // Collect video IDs
+        const videoIds = videoItems.map(v => v.id.videoId).join(',');
+
+        // Fetch video statistics (for views)
+        res = await fetch(`https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=snippet,statistics`);
+        const videosData = await res.json();
+
+        // Map video details by videoId for quick lookup
+        const videoDetails = {};
+        videosData.items.forEach(video => {
+          videoDetails[video.id] = video;
+        });
+
+        // Render videos in grid
+        grid.innerHTML = '';
+        videoItems.forEach(item => {
+          const vid = item.id.videoId;
+          const details = videoDetails[vid];
+          if (!details) return; // safety check
+
+          const title = details.snippet.title;
+          const views = details.statistics.viewCount;
+
+          grid.innerHTML += renderVideoCard(vid, title, views);
+        });
+      } catch (err) {
+        grid.innerHTML = 'Failed to load videos. Please try again later.';
+        console.error(err);
+      }
+    }
+
+    loadVideos();
+
+    // Menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menuBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
