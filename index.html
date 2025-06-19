@@ -1,482 +1,293 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Super P Used Cars</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
       background: #001f3f;
-      display: flex;
-      justify-content: center;
-      padding: 30px 20px;
-      color: #e0e7ff;
-      position: relative;
-      min-height: 100vh;
-      /* Add padding-top so nav is fully visible */
-      padding-top: 80px;
+      display: flex; justify-content: center;
+      padding: 80px 20px 20px;
+      color: #e0e7ff; min-height: 100vh;
     }
-
     .onebox {
-      width: 100%;
-      max-width: 720px;
-      background: #002e5d;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-      display: flex;
-      flex-direction: column;
-      position: relative;
+      width:100%; max-width:720px; background:#002e5d;
+      border-radius:12px; overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,0.7);
+      position:relative;
     }
-
     header img {
-      width: 100%;
-      height: auto;
-      max-height: 180px;
-      object-fit: contain;
-      filter: brightness(0.85);
-      display: block;
+      width:100%; height:auto; max-height:180px;
+      object-fit:contain; filter:brightness(0.85);
     }
 
-    /* Menu button (hamburger) */
-    #menu-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 35px;
-      height: 30px;
-      cursor: pointer;
-      z-index: 1200;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: transparent;
-      border: none;
-      padding: 0;
+    /* Hamburger button */
+    #menu-btn { position:fixed; top:20px; left:20px;
+      width:35px; height:32px; cursor:pointer;
+      display:flex; flex-direction:column;
+      justify-content:space-between;
+      background:transparent; border:none; z-index:999;
     }
-
     #menu-btn span {
-      display: block;
-      height: 4px;
-      background-color: #fff;
-      border-radius: 2px;
-      transition: all 0.3s ease;
+      display:block; width:100%; height:4px;
+      background:#fff; border-radius:2px;
+      transition:transform 0.3s, opacity 0.3s;
     }
-
-    /* Animate menu button when open */
     #menu-btn.open span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+      transform:rotate(45deg) translate(5px,5px);
     }
-    #menu-btn.open span:nth-child(2) {
-      opacity: 0;
-    }
+    #menu-btn.open span:nth-child(2) { opacity:0; }
     #menu-btn.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
+      transform:rotate(-45deg) translate(5px,-5px);
     }
 
+    /* Sidebar nav */
     nav {
-      position: fixed;
-      top: 70px;
-      left: 20px;
-      background: rgba(0, 0, 64, 0.95);
-      border-radius: 8px;
-      /* Changed from display:none to transform for animation */
-      transform: translateX(-120%);
-      transition: transform 0.3s ease;
-      flex-direction: column;
-      min-width: 160px;
-      z-index: 1100;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+      position:fixed; top:0; left:0;
+      width:70%; max-width:250px; height:100%;
+      background:rgba(0,0,64,0.95);
+      transform:translateX(-100%); transition:transform 0.3s ease;
+      padding-top:80px; display:flex; flex-direction:column;
+      z-index:998;
     }
-
-    nav.open {
-      transform: translateX(0);
-    }
-
+    nav.open { transform:translateX(0); }
     nav a {
-      color: #dce6ff;
-      padding: 10px 18px;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      font-weight: 600;
-      font-size: 15px;
-      white-space: nowrap;
-      transition: background 0.2s ease;
+      color:#dce6ff; padding:15px 20px; font-weight:600;
+      text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);
     }
+    nav a:last-child { border-bottom:none; }
+    nav a:hover { background:rgba(255,255,255,0.1); }
 
-    nav a:last-child {
-      border-bottom: none;
-    }
-
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    main {
-      padding: 30px 20px;
-      text-align: center;
-      margin-top: 10px;
-    }
-
+    main { padding:30px 20px; text-align:center; }
     .hero-title {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #ffffff;
-      text-shadow: 0 0 8px #007bff, 0 0 12px #4c6ef5, 0 0 18px #4c6ef5;
-      font-weight: 900;
-      word-wrap: break-word;
+      font-size:32px; margin-bottom:20px;
+      color:#fff; text-shadow:0 0 8px #007bff,0 0 12px #4c6ef5,0 0 18px #4c6ef5;
+      font-weight:900; word-wrap:break-word;
     }
 
     .info-box {
-      background: linear-gradient(to right, #012144, #023a7a);
-      padding: 24px 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.4);
-      color: #e0ecff;
-      line-height: 1.7;
-      margin-bottom: 30px;
-      font-size: 16px;
+      background:linear-gradient(to right,#012144,#023a7a);
+      padding:24px 20px; border-radius:12px;
+      box-shadow:0 8px 24px rgba(0,0,50,0.4);
+      color:#e0ecff; line-height:1.7; margin-bottom:30px;
+      font-size:16px;
     }
-
-    .info-box a {
-      color: #6eb5ff;
-      text-decoration: none;
-      font-weight: bold;
+    .info-box a { color:#6eb5ff; text-decoration:none; font-weight:bold; }
+    .info-box a:hover { text-decoration:underline; color:#a8d0ff; }
+    .highlight { font-size:18px; font-weight:700;
+      margin-bottom:14px;
+      background:linear-gradient(90deg,#6fb1fc,#a0c4ff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
-
-    .info-box a:hover {
-      text-decoration: underline;
-      color: #a8d0ff;
-    }
-
-    .info-box .highlight {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 14px;
-      background: linear-gradient(90deg, #6fb1fc, #a0c4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .info-box .icon {
-      margin-right: 8px;
-      color: #6eb5ff;
-    }
-
-    .info-box .experience {
-      font-weight: bold;
-      color: #ffd166;
-      margin-top: 16px;
-    }
-
+    .icon { margin-right:8px; color:#6eb5ff; }
+    .experience { font-weight:bold; color:#ffd166; margin-top:16px; }
     .glow-phone {
-      color: #ffcc00;
-      font-weight: bold;
-      animation: glow 1.5s infinite alternate;
+      color:#ffcc00; font-weight:bold;
+      animation:glow 1.5s infinite alternate;
     }
-
     @keyframes glow {
-      from {
-        text-shadow: 0 0 8px #ffcc00, 0 0 16px #ffcc00;
-      }
-      to {
-        text-shadow: 0 0 16px #ffaa00, 0 0 32px #ffaa00;
-      }
+      from { text-shadow:0 0 8px #ffcc00,0 0 16px #ffcc00; }
+      to { text-shadow:0 0 16px #ffaa00,0 0 32px #ffaa00; }
     }
 
     iframe {
-      width: 100%;
-      max-width: 720px;
-      height: 405px;
-      border-radius: 12px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+      width:100%; max-width:720px;
+      height:405px; border-radius:12px;
+      box-shadow:0 8px 15px rgba(0,0,0,0.6);
     }
-
-    .promo-text {
-      margin-top: 20px;
-      font-weight: bold;
-      font-size: 18px;
-      color: #a3c9ff;
-    }
+    .promo-text { margin-top:20px; font-weight:bold; font-size:18px; color:#a3c9ff; }
 
     .qr-section {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin: 30px auto;
-      max-width: 400px;
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:20px; margin:30px auto; max-width:400px;
     }
-
     .qr-box {
-      background: #003366;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-      padding: 10px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
+      background:#003366; border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.8);
+      padding:10px; cursor:pointer;
+      transition:transform 0.3s ease;
     }
-
-    .qr-box:hover {
-      transform: scale(1.08);
-    }
-
+    .qr-box:hover { transform:scale(1.08); }
     .qr-box img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      border-radius: 8px;
+      width:140px; height:140px; object-fit:contain; border-radius:8px;
     }
-
-    .qr-box div {
-      margin-top: 10px;
-      color: #a3c9ff;
-      font-weight: 700;
-    }
+    .qr-box div { margin-top:10px; color:#a3c9ff; font-weight:700; }
 
     .socials {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 20px 0;
+      display:flex; justify-content:center; gap:20px; margin:20px 0;
     }
-
     .socials a {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      color: white;
-      box-shadow: 0 0 6px rgba(72, 118, 255, 0.7);
+      width:46px;height:46px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:50%; font-size:22px;
+      box-shadow:0 0 6px rgba(72,118,255,0.7);
+      color:white;
     }
-
-    .facebook { background-color: #3b5998; }
-    .tiktok { background-color: #000; }
-    .youtube { background-color: #ff0000; }
-    .line { background-color: #00c300; }
-    .map { background-color: #34a853; }
-
-    .socials a:hover {
-      transform: scale(1.15);
-      filter: brightness(1.3);
-    }
+    .facebook { background:#3b5998; }
+    .tiktok { background:#000; }
+    .youtube { background:#ff0000; }
+    .line { background:#00c300; }
+    .map { background:#34a853; }
+    .socials a:hover { transform:scale(1.15); filter:brightness(1.3); }
 
     footer {
-      text-align: center;
-      font-size: 13px;
-      color: #a3bffa;
-      background-color: #001f3f;
-      padding: 20px;
+      text-align:center;
+      font-size:13px; background:#001f3f;
+      color:#a3bffa; padding:20px;
     }
 
-    /* Popup overlay and content */
+    /* QR popup */
     .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
+      position:fixed; top:0; left:0;
+      width:100vw; height:100vh;
+      background:rgba(0,0,0,0.7);
+      display:none; align-items:center; justify-content:center;
+      z-index:997;
     }
-    .popup-overlay.active {
-      display: flex;
-    }
+    .popup-overlay.active { display:flex; }
     .popup-content {
-      background: #003366;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
-      text-align: center;
-      max-width: 90vw;
-      max-height: 90vh;
+      background:#003366; padding:20px; border-radius:12px;
+      max-width:90vw; max-height:90vh; text-align:center;
     }
     .popup-content img {
-      max-width: 300px;
-      max-height: 300px;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
+      max-width:300px; max-height:300px;
+      width:100%; height:auto; border-radius:8px;
     }
     .popup-close {
-      margin-top: 15px;
-      background: #0059b3;
-      border: none;
-      color: #e0e7ff;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+      margin-top:15px; background:#0059b3;
+      color:#e0e7ff; border:none;
+      padding:8px 16px; border-radius:8px;
+      font-weight:bold; cursor:pointer;
+      transition:background 0.3s ease;
     }
-    .popup-close:hover {
-      background: #007bff;
-    }
+    .popup-close:hover { background:#007bff; }
 
-    @media (max-width: 768px) {
-      iframe { height: 220px; }
-      .qr-section { grid-template-columns: 1fr; }
-      .hero-title {
-        font-size: 24px;
-        line-height: 1.2;
-      }
-      header img {
-        max-height: 140px;
-      }
-      nav {
-        top: 60px;
-        left: 15px;
-        min-width: 140px;
-      }
+    @media(max-width:768px){
+      .hero-title { font-size:24px; line-height:1.2; }
+      iframe { height:220px; }
+      .qr-section { grid-template-columns:1fr; }
+      header img { max-height:140px; }
     }
-
-    @media (max-width: 400px) {
-      .hero-title {
-        font-size: 20px;
-      }
+    @media(max-width:400px){
+      .hero-title { font-size:20px; }
     }
   </style>
 </head>
-
 <body>
-  <!-- Menu button -->
-  <button id="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
 
-  <nav id="menu" aria-label="Primary Navigation">
-    <a href="index.html">Home</a>
-    <a href="aboutus.html">About Us</a>
-    <a href="youtubeg.html">วิดีโอ YouTube</a>
-    <a href="https://www.one2car.com/superp" target="_blank" rel="noopener noreferrer">In Stocks</a>
-  </nav>
+<button id="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
 
-  <div class="onebox">
-    <header>
-      <img src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Super P Used Cars Banner" />
-    </header>
+<nav id="menu" aria-label="Main Navigation">
+  <a href="index.html">Home</a>
+  <a href="aboutus.html">About Us</a>
+  <a href="youtubeg.html">วิดีโอ YouTube</a>
+  <a href="https://www.one2car.com/superp" target="_blank" rel="noopener">In Stocks</a>
+</nav>
 
-    <div class="socials">
-      <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"><i class="fab fa-line"></i></a>
-      <a href="https://www.facebook.com/super.p.used.car/" class="facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://www.tiktok.com/@pomsuperp" class="tiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-      <a href="https://www.youtube.com/@super-p" class="youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" class="map" aria-label="Map"><i class="fas fa-map-marker-alt"></i></a>
+<div class="onebox">
+  <header>
+    <img src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Super P Used Cars Banner">
+  </header>
+
+  <div class="socials">
+    <a href="https://lin.ee/PYG28d3" class="line"><i class="fab fa-line"></i></a>
+    <a href="https://www.facebook.com/super.p.used.car/" class="facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.tiktok.com/@pomsuperp" class="tiktok"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.youtube.com/@super-p" class="youtube"><i class="fab fa-youtube"></i></a>
+    <a href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" class="map"><i class="fas fa-map-marker-alt"></i></a>
+  </div>
+
+  <main>
+    <h1 class="hero-title">ยินดีต้อนรับสู่ Super P Used Cars!</h1>
+    <div class="info-box">
+      <p class="highlight"><i class="fas fa-hand-point-right icon"></i> ลูกค้า Super P รถมือสอง ดูรถกันอย่างไร ไม่ต้องเจอรถ สงสัยโทรเลย</p>
+      <p><i class="fas fa-phone-alt icon"></i> ติดต่อ: <a class="glow-phone" href="tel:0816196377">ปอม 081-619-6377</a></p>
+      <p><i class="fas fa-map-marker-alt icon"></i> <a href="https://maps.app.goo.gl/5h1drXSws6GPpYVb7" target="_blank">ขอรูปเพิ่ม Location ข้อมูลเพิ่มเติม</a></p>
+      <p><i class="fas fa-car icon"></i> รีวิวรถยนต์เพิ่มเติม</p>
+      <p class="experience"><i class="fas fa-briefcase icon"></i> มีประสบการณ์ในวงการรถมือสองกว่า 30 ปี</p>
+      <p><i class="fas fa-tools icon"></i> ดำเนินกิจการต่อไปเพื่อพัฒนารถยนต์มือสองที่ดีที่สุดให้กับลูกค้าทุกท่าน</p>
+      <p><i class="fas fa-store icon"></i> ที่ตั้ง Showroom: ถนนกาญจนาฯ บางบัวทอง นนทบุรี</p>
+      <p><i class="fas fa-map-pin icon"></i> จุดสังเกตใหญ่: ตรงข้าม Lotus ไทรน้อย</p>
     </div>
 
-    <main>
-      <h1 class="hero-title">ยินดีต้อนรับสู่ Super P Used Cars!</h1>
+    <iframe src="https://www.youtube.com/embed/tVFXA5GZwAs?si=jzI5FE5D4kW2AGIh" allowfullscreen></iframe>
 
-      <div class="info-box">
-        <p class="highlight"><i class="fas fa-hand-point-right icon"></i> ลูกค้า Super P รถมือสอง ดูรถกันอย่างไร ไม่ต้องเจอรถ สงสัยโทรเลย</p>
-        <p><i class="fas fa-phone-alt icon"></i> ติดต่อ: <a class="glow-phone" href="tel:0816196377">ปอม 081-619-6377</a></p>
-        <p><i class="fas fa-map-marker-alt icon"></i> <a href="https://maps.app.goo.gl/5h1drXSws6GPpYVb7" target="_blank">ขอรูปเพิ่ม Location ข้อมูลเพิ่มเติม</a></p>
-        <p><i class="fas fa-car icon"></i> รีวิวรถยนต์เพิ่มเติม</p>
-        <p class="experience"><i class="fas fa-briefcase icon"></i> มีประสบการณ์ในวงการรถมือสองกว่า 30 ปี</p>
-        <p><i class="fas fa-tools icon"></i> ดำเนินกิจการต่อไปเพื่อพัฒนารถยนต์มือสองที่ดีที่สุดให้กับลูกค้าทุกท่าน</p>
-        <p><i class="fas fa-store icon"></i> ที่ตั้ง Showroom: ถนนกาญจนาฯ บางบัวทอง นนทบุรี</p>
-        <p><i class="fas fa-map-pin icon"></i> จุดสังเกตใหญ่: ตรงข้าม Lotus ไทรน้อย</p>
+    <div class="promo-text">** Flash Sale วันนี้! ลดราคาพิเศษเฉพาะรถที่ร่วมรายการ **</div>
+
+    <section class="qr-section">
+      <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://lin.ee/PYG28d3">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://lin.ee/PYG28d3" alt="LINE QR">
+        <div>LINE</div>
       </div>
+      <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.tiktok.com/@pomsuperp">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.tiktok.com/@pomsuperp" alt="TikTok QR">
+        <div>TikTok</div>
+      </div>
+      <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.youtube.com/@super-p">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.youtube.com/@super-p" alt="YouTube QR">
+        <div>YouTube</div>
+      </div>
+      <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" alt="Google Maps QR">
+        <div>Maps</div>
+      </div>
+    </section>
+  </main>
 
-      <iframe src="https://www.youtube.com/embed/tVFXA5GZwAs?si=jzI5FE5D4kW2AGIh" allowfullscreen></iframe>
+  <footer>
+    &copy; 2025 Super P Used Cars<br>
+    ติดต่อ: <a href="tel:0816196377" style="color:#82aaff;">081‑619‑6377 (ปอม)</a>
+  </footer>
+</div>
 
-      <div class="promo-text">** Flash Sale วันนี้! ลดราคาพิเศษเฉพาะรถที่ร่วมรายการ **</div>
-
-      <section class="qr-section">
-        <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://lin.ee/PYG28d3">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://lin.ee/PYG28d3" alt="LINE QR" />
-          <div>LINE</div>
-        </div>
-        <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.tiktok.com/@pomsuperp">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.tiktok.com/@pomsuperp" alt="TikTok QR" />
-          <div>TikTok</div>
-        </div>
-        <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.youtube.com/@super-p">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.youtube.com/@super-p" alt="YouTube QR" />
-          <div>YouTube</div>
-        </div>
-        <div class="qr-box" data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" alt="Google Maps QR" />
-          <div>Maps</div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      &copy; 2025 Super P Used Cars<br />
-      ติดต่อ: <a href="tel:0816196377" style="color:#82aaff; text-decoration:none;">081-619-6377 (ปอม)</a>
-    </footer>
+<div class="popup-overlay" id="qrPopup" aria-hidden="true">
+  <div class="popup-content" role="dialog" aria-modal="true">
+    <img src="" alt="QR Code Large" id="popupImage">
+    <button class="popup-close" id="popupClose">ปิด</button>
   </div>
+</div>
 
-  <!-- QR Popup -->
-  <div class="popup-overlay" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" id="qr-popup">
-    <div class="popup-content">
-      <img src="" alt="QR code large view" id="popup-image" />
-      <button class="popup-close" aria-label="Close popup" id="popup-close">ปิด</button>
-    </div>
-  </div>
+<script>
+  const menuBtn = document.getElementById('menu-btn'),
+        menu = document.getElementById('menu'),
+        qrBoxes = document.querySelectorAll('.qr-box'),
+        popup = document.getElementById('qrPopup'),
+        popupImg = document.getElementById('popupImage'),
+        popupClose = document.getElementById('popupClose');
 
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const menu = document.getElementById('menu');
-    const popup = document.getElementById('qr-popup');
-    const popupImage = document.getElementById('popup-image');
-    const popupClose = document.getElementById('popup-close');
-    const qrBoxes = document.querySelectorAll('.qr-box');
+  menuBtn.addEventListener('click', () => {
+    const open = menuBtn.classList.toggle('open');
+    menu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
 
-    menuBtn.addEventListener('click', () => {
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', !expanded);
-      menuBtn.classList.toggle('open');
-      menu.classList.toggle('open');
+  qrBoxes.forEach(b => {
+    b.addEventListener('click', () => {
+      popupImg.src = b.getAttribute('data-qr');
+      popup.classList.add('active');
+      popup.setAttribute('aria-hidden','false');
     });
+  });
 
-    qrBoxes.forEach(box => {
-      box.addEventListener('click', () => {
-        const qrSrc = box.getAttribute('data-qr');
-        popupImage.src = qrSrc;
-        popup.classList.add('active');
-        popup.setAttribute('aria-hidden', 'false');
-        popup.focus();
-      });
-    });
+  popupClose.addEventListener('click', () => {
+    popup.classList.remove('active');
+    popup.setAttribute('aria-hidden','true');
+  });
 
-    popupClose.addEventListener('click', () => {
-      popup.classList.remove('active');
-      popupImage.src = '';
-      popup.setAttribute('aria-hidden', 'true');
-    });
+  popup.addEventListener('click', e => {
+    if (e.target === popup) popupClose.click();
+  });
 
-    popup.addEventListener('click', (e) => {
-      if (e.target === popup) {
-        popup.classList.remove('active');
-        popupImage.src = '';
-        popup.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && popup.classList.contains('active')) {
-        popup.classList.remove('active');
-        popupImage.src = '';
-        popup.setAttribute('aria-hidden', 'true');
-      }
-    });
-  </script>
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && popup.classList.contains('active')) popupClose.click();
+  });
+</script>
 </body>
 </html>
