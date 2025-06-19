@@ -21,6 +21,8 @@
       color: #e0e7ff;
       position: relative;
       min-height: 100vh;
+      /* Add padding-top so nav is fully visible */
+      padding-top: 80px;
     }
 
     .onebox {
@@ -52,7 +54,7 @@
       width: 35px;
       height: 30px;
       cursor: pointer;
-      z-index: 1100;
+      z-index: 1200;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -86,15 +88,17 @@
       left: 20px;
       background: rgba(0, 0, 64, 0.95);
       border-radius: 8px;
-      display: none;
+      /* Changed from display:none to transform for animation */
+      transform: translateX(-120%);
+      transition: transform 0.3s ease;
       flex-direction: column;
       min-width: 160px;
-      z-index: 1050;
+      z-index: 1100;
       box-shadow: 0 6px 15px rgba(0,0,0,0.5);
     }
 
     nav.open {
-      display: flex;
+      transform: translateX(0);
     }
 
     nav a {
@@ -420,29 +424,27 @@
   </div>
 
   <!-- QR Popup -->
-  <div class="popup-overlay" id="qrPopup" aria-hidden="true">
-    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-      <img src="" alt="QR Code Large" id="popupImage" />
-      <button class="popup-close" id="popupClose" aria-label="Close QR code popup">Close</button>
+  <div class="popup-overlay" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" id="qr-popup">
+    <div class="popup-content">
+      <img src="" alt="QR code large view" id="popup-image" />
+      <button class="popup-close" aria-label="Close popup" id="popup-close">ปิด</button>
     </div>
   </div>
 
   <script>
-    // Menu toggle
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
+    const popup = document.getElementById('qr-popup');
+    const popupImage = document.getElementById('popup-image');
+    const popupClose = document.getElementById('popup-close');
+    const qrBoxes = document.querySelectorAll('.qr-box');
 
     menuBtn.addEventListener('click', () => {
-      const isOpen = menuBtn.classList.toggle('open');
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', !expanded);
+      menuBtn.classList.toggle('open');
       menu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', isOpen);
     });
-
-    // QR popup functionality
-    const qrBoxes = document.querySelectorAll('.qr-box');
-    const popup = document.getElementById('qrPopup');
-    const popupImage = document.getElementById('popupImage');
-    const popupClose = document.getElementById('popupClose');
 
     qrBoxes.forEach(box => {
       box.addEventListener('click', () => {
@@ -450,6 +452,7 @@
         popupImage.src = qrSrc;
         popup.classList.add('active');
         popup.setAttribute('aria-hidden', 'false');
+        popup.focus();
       });
     });
 
@@ -459,7 +462,6 @@
       popup.setAttribute('aria-hidden', 'true');
     });
 
-    // Close popup if clicking outside content
     popup.addEventListener('click', (e) => {
       if (e.target === popup) {
         popup.classList.remove('active');
@@ -468,7 +470,6 @@
       }
     });
 
-    // Close popup on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && popup.classList.contains('active')) {
         popup.classList.remove('active');
