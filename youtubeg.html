@@ -69,11 +69,45 @@
     .video-section {
       margin-bottom: 40px;
     }
+
+    /* New top button container */
+    .view-more-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .view-more-btn {
+      background: linear-gradient(45deg, #FF0000, #cc0000);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 28px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(255, 0, 0, 0.5);
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+    .view-more-btn:hover,
+    .view-more-btn:focus {
+      background: linear-gradient(45deg, #cc0000, #990000);
+      box-shadow: 0 8px 16px rgba(204, 0, 0, 0.7);
+      transform: scale(1.05);
+      outline: none;
+    }
+
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      gap: 20px;
     }
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr; /* Stack vertically on small screens */
+      }
+    }
+
     .video-card {
       background: white;
       border: 1px solid #ddd;
@@ -92,42 +126,100 @@
     .video-info {
       margin-top: 8px;
     }
-    .share-btn {
-      margin-top: 5px;
-      display: inline-block;
-      background: #FF0000;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .share-btn i {
-      margin-right: 6px;
-    }
-    .comment-box {
+
+    /* Share icons styling */
+    .share-icons {
       margin-top: 10px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 14px;
+      position: relative;
     }
-    .comment-box textarea {
-      width: 100%;
-      padding: 6px;
-      font-size: 13px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      resize: vertical;
-    }
-    .comment-box button {
-      margin-top: 5px;
-      padding: 5px 12px;
-      font-size: 13px;
-      background-color: #007bff;
+
+    .share-icons a,
+    .share-icons button.copy-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
       color: #fff;
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      animation: float 3s ease-in-out infinite;
       border: none;
-      border-radius: 4px;
       cursor: pointer;
+      user-select: none;
     }
-    .comment-box button:hover {
-      background-color: #0056b3;
+
+    .share-icons a i,
+    .share-icons button.copy-link-btn i {
+      margin-right: 6px;
+      font-size: 16px;
+    }
+
+    .share-icons a.facebook {
+      background-color: #1877F2;
+    }
+    .share-icons a.instagram {
+      background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    .share-icons a.tiktok {
+      background-color: #000;
+    }
+    .share-icons a.whatsapp {
+      background-color: #25D366;
+    }
+    .share-icons a.line {
+      background-color: #00c300;
+    }
+
+    .share-icons button.copy-link-btn {
+      background-color: #555;
+    }
+
+    .share-icons a:hover,
+    .share-icons button.copy-link-btn:hover {
+      transform: scale(1.08) translateY(-2px);
+      opacity: 0.95;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Tooltip styles */
+    .share-icons a::after,
+    .share-icons button.copy-link-btn::after {
+      content: attr(title);
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 100;
+    }
+
+    .share-icons a:hover::after,
+    .share-icons button.copy-link-btn:hover::after {
+      opacity: 1;
     }
 
     footer {
@@ -183,16 +275,24 @@
       <nav id="menu">
         <a href="index.html">Home</a>
         <a href="aboutus.html">About Us</a>
-        <a href="youtubeg.html">UG</a>
-        <a href="https://www.youtube.com/@super-p">วิดีโอ YouTube</a>
+        <a href="youtubeg.html">วิดีโอ YouTube</a>
         <a href="https://www.one2car.com/superp">In Stocks</a>
       </nav>
     </header>
 
     <main>
       <h1>🎥 Super P Used Cars – Video Gallery</h1>
+
       <div class="video-section">
-        <div id="video-grid" class="video-grid">Loading...</div>
+
+        <!-- New View More Button -->
+        <div class="view-more-container">
+          <button class="view-more-btn" onclick="window.open('https://www.youtube.com/@super-p', '_blank', 'noopener')">
+            Explore More Cars
+          </button>
+        </div>
+
+        <div id="video-grid" class="video-grid">Loading videos...</div>
       </div>
     </main>
 
@@ -214,19 +314,27 @@
     const CHANNEL_ID = 'UCewXwgUpA5rnfn94VGpvrdg';
 
     function renderVideoCard(videoId, title, views = null) {
+      const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      const encodedUrl = encodeURIComponent(videoUrl);
+
       return `
         <div class="video-card">
           <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen loading="lazy"></iframe>
           <div class="video-info">
             <strong>${title}</strong><br>
             ${views ? `👁️ ${parseInt(views).toLocaleString()} views<br>` : ''}
-            <a class="share-btn" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">
-              <i class="fas fa-share-alt"></i> Share
-            </a>
-          </div>
-          <div class="comment-box">
-            <textarea rows="2" placeholder="💬 Add a comment..."></textarea>
-            <button onclick="alert('📝 Your comment was submitted!')">Post</button>
+
+            <div class="share-icons">
+              <span>🔗 Share: </span>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" class="facebook" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/" class="instagram" target="_blank" title="Share on Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.tiktok.com/" class="tiktok" target="_blank" title="Share on TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/?text=${encodedUrl}" class="whatsapp" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+              <a href="https://line.me/R/msg/text/?${encodedUrl}" class="line" target="_blank" title="Share on LINE"><i class="fab fa-line"></i></a>
+              <button class="copy-link-btn" title="Copy video link" onclick="copyLink('${videoUrl}', this)">
+                <i class="fas fa-link"></i> Copy Link
+              </button>
+            </div>
           </div>
         </div>`;
     }
@@ -272,6 +380,20 @@
         grid.innerHTML = 'Failed to load videos. Please try again later.';
         console.error(err);
       }
+    }
+
+    function copyLink(url, btn) {
+      navigator.clipboard.writeText(url).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 1500);
+      }).catch(() => {
+        alert('Failed to copy link.');
+      });
     }
 
     loadVideos();
