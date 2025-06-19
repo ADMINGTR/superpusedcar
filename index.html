@@ -19,6 +19,8 @@
       justify-content: center;
       padding: 30px 20px;
       color: #e0e7ff;
+      position: relative;
+      min-height: 100vh;
     }
 
     .onebox {
@@ -30,6 +32,7 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     header img {
@@ -39,6 +42,7 @@
       filter: brightness(0.85);
     }
 
+    /* Hamburger button */
     #menu-btn {
       position: absolute;
       top: 15px;
@@ -46,7 +50,7 @@
       width: 35px;
       height: 30px;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 1100;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -57,8 +61,20 @@
       height: 4px;
       background-color: #fff;
       border-radius: 2px;
+      transition: all 0.3s ease;
     }
 
+    #menu-btn.open span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+    #menu-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #menu-btn.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Navigation menu */
     nav {
       position: absolute;
       top: 60px;
@@ -68,7 +84,8 @@
       display: none;
       flex-direction: column;
       min-width: 160px;
-      z-index: 1000;
+      z-index: 1050;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
     }
 
     nav.open {
@@ -82,6 +99,11 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       font-weight: 600;
       font-size: 15px;
+      transition: background 0.3s ease;
+    }
+
+    nav a:last-child {
+      border-bottom: none;
     }
 
     nav a:hover {
@@ -91,6 +113,7 @@
     main {
       padding: 30px 20px;
       text-align: center;
+      margin-top: 20px;
     }
 
     .hero-title {
@@ -110,6 +133,7 @@
       line-height: 1.7;
       margin-bottom: 30px;
       font-size: 16px;
+      text-align: left;
     }
 
     .info-box a {
@@ -164,6 +188,7 @@
       height: 405px;
       border-radius: 12px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+      margin-bottom: 20px;
     }
 
     .promo-text {
@@ -171,46 +196,117 @@
       font-weight: bold;
       font-size: 18px;
       color: #a3c9ff;
+      margin-bottom: 20px;
     }
 
+    /* QR icons as buttons */
     .qr-section {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin: 30px auto;
-      max-width: 400px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
     }
 
-    .qr-box {
+    .qr-icon-btn {
+      width: 80px;
+      height: 80px;
       background: #003366;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-      padding: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .qr-box:hover {
-      transform: scale(1.08);
-    }
-
-    .qr-box img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .qr-box div {
-      margin-top: 10px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       color: #a3c9ff;
       font-weight: 700;
+      user-select: none;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    .qr-icon-btn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 15px #4c9aff;
+      color: #82aaff;
+    }
+
+    .qr-icon-btn i {
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: #6eb5ff;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      padding: 15px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #003366;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9);
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+      position: relative;
+      color: #a3c9ff;
+    }
+
+    .modal-content img {
+      width: 280px;
+      height: 280px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 4px #4c9aff);
+    }
+
+    .modal-content .label {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #82aaff;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .modal-close:hover {
+      color: #cce0ff;
     }
 
     .socials {
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin: 20px 0;
+      margin: 20px 0 0 0;
     }
 
     .socials a {
@@ -223,6 +319,7 @@
       font-size: 22px;
       color: white;
       box-shadow: 0 0 6px rgba(72, 118, 255, 0.7);
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
     .facebook { background-color: #3b5998; }
@@ -242,11 +339,16 @@
       color: #a3bffa;
       background-color: #001f3f;
       padding: 20px;
+      margin-top: auto;
     }
 
     @media (max-width: 768px) {
-      iframe { height: 220px; }
-      .qr-section { grid-template-columns: 1fr; }
+      iframe {
+        height: 220px;
+      }
+      .qr-section {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -255,9 +357,20 @@
   <div class="onebox">
     <header>
       <img src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Super P Used Cars Banner" />
+      <div id="menu-btn" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav id="menu" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="youtubeg.html">วิดีโอ YouTube</a>
+        <a href="https://www.one2car.com/superp" target="_blank" rel="noopener noreferrer">In Stocks</a>
+      </nav>
     </header>
 
-    <div class="socials">
+    <div class="socials" aria-label="Social media links">
       <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"><i class="fab fa-line"></i></a>
       <a href="https://www.facebook.com/super.p.used.car/" class="facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="https://www.tiktok.com/@pomsuperp" class="tiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -283,30 +396,101 @@
 
       <div class="promo-text">** Flash Sale วันนี้! ลดราคาพิเศษเฉพาะรถที่ร่วมรายการ **</div>
 
-      <section class="qr-section">
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://lin.ee/PYG28d3" alt="LINE QR" />
-          <div>LINE</div>
+      <section class="qr-section" aria-label="QR Code quick access">
+        <div class="qr-icon-btn" tabindex="0" role="button" aria-pressed="false" data-label="LINE" data-url="https://lin.ee/PYG28d3" title="LINE QR">
+          <i class="fab fa-line"></i>
+          LINE
         </div>
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.tiktok.com/@pomsuperp" alt="TikTok QR" />
-          <div>TikTok</div>
+        <div class="qr-icon-btn" tabindex="0" role="button" aria-pressed="false" data-label="TikTok" data-url="https://www.tiktok.com/@pomsuperp" title="TikTok QR">
+          <i class="fab fa-tiktok"></i>
+          TikTok
         </div>
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.youtube.com/@super-p" alt="YouTube QR" />
-          <div>YouTube</div>
+        <div class="qr-icon-btn" tabindex="0" role="button" aria-pressed="false" data-label="YouTube" data-url="https://www.youtube.com/@super-p" title="YouTube QR">
+          <i class="fab fa-youtube"></i>
+          YouTube
         </div>
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" alt="Google Maps QR" />
-          <div>Maps</div>
+        <div class="qr-icon-btn" tabindex="0" role="button" aria-pressed="false" data-label="Maps" data-url="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" title="Maps QR">
+          <i class="fas fa-map-marker-alt"></i>
+          Maps
         </div>
       </section>
     </main>
 
     <footer>
-      &copy; 2025 Super P Used Cars<br>
+      &copy; 2025 Super P Used Cars<br />
       ติดต่อ: <a href="tel:0816196377" style="color:#82aaff; text-decoration:none;">081-619-6377 (ปอม)</a>
     </footer>
   </div>
+
+  <!-- QR Modal -->
+  <div class="modal-overlay" id="qr-modal" role="dialog" aria-modal="true" aria-labelledby="modal-label" aria-describedby="modal-desc" tabindex="-1">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="label" id="modal-label"></div>
+      <img src="" alt="" id="modal-img" />
+    </div>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+
+    // Accessibility: allow keyboard toggle with Enter or Space
+    menuBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuBtn.click();
+      }
+    });
+
+    // QR modal logic
+    const qrButtons = document.querySelectorAll('.qr-icon-btn');
+    const modal = document.getElementById('qr-modal');
+    const modalLabel = document.getElementById('modal-label');
+    const modalImg = document.getElementById('modal-img');
+    const modalClose = modal.querySelector('.modal-close');
+
+    qrButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const label = btn.getAttribute('data-label');
+        const url = btn.getAttribute('data-url');
+        modalLabel.textContent = label;
+        modalImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
+        modalImg.alt = `${label} QR Code`;
+        modal.classList.add('active');
+        modal.focus();
+      });
+      // Also allow keyboard activation
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // Close modal if click outside content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Close modal with Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>
