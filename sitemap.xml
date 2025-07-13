@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://superpusedcars.com/</loc>
+    <lastmod>2025-01-26T12:00:00+07:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- About Us Page -->
+  <url>
+    <loc>https://superpusedcars.com/aboutus.html</loc>
+    <lastmod>2025-01-26T12:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- YouTube Gallery Page -->
+  <url>
+    <loc>https://superpusedcars.com/youtubeg.html</loc>
+    <lastmod>2025-01-26T12:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- YouTube Videos Page -->
+  <url>
+    <loc>https://superpusedcars.com/youtube.html</loc>
+    <lastmod>2025-01-26T12:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- You1 Page -->
+  <url>
+    <loc>https://superpusedcars.com/you1.html</loc>
+    <lastmod>2025-01-26T12:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

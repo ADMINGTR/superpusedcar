@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="th" prefix="og: http://ogp.me/ns#">
+  <head>
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary Meta Tags -->
+    <title>
+      {{PAGE_TITLE}} - Super P Used Cars | รถยนต์มือสองคุณภาพ นครปฐม
+    </title>
+    <meta
+      name="title"
+      content="{{PAGE_TITLE}} - Super P Used Cars | รถยนต์มือสองคุณภาพ นครปฐม"
+    />
+    <meta name="description" content="{{PAGE_DESCRIPTION}}" />
+    <meta
+      name="keywords"
+      content="รถมือสอง, รถยนต์มือสอง, Super P Used Cars, นครปฐม, รถคุณภาพ, รถราคาดี, {{PAGE_KEYWORDS}}"
+    />
+    <meta name="author" content="Super P Used Cars" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Thai" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{CANONICAL_URL}}" />
+    <meta property="og:title" content="{{PAGE_TITLE}} - Super P Used Cars" />
+    <meta property="og:description" content="{{PAGE_DESCRIPTION}}" />
+    <meta property="og:image" content="{{OG_IMAGE}}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Super P Used Cars" />
+    <meta property="og:locale" content="th_TH" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{CANONICAL_URL}}" />
+    <meta
+      property="twitter:title"
+      content="{{PAGE_TITLE}} - Super P Used Cars"
+    />
+    <meta property="twitter:description" content="{{PAGE_DESCRIPTION}}" />
+    <meta property="twitter:image" content="{{OG_IMAGE}}" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#001f3f" />
+    <meta name="msapplication-TileColor" content="#001f3f" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <link rel="dns-prefetch" href="https://lin.ee" />
+    <link rel="dns-prefetch" href="https://www.tiktok.com" />
+    <link rel="dns-prefetch" href="https://maps.google.com" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;600;700&family=Dancing+Script:wght@400;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family:Caveat:wght@400;600;700&family=Dancing+Script:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/main.css" />
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+      .loading-spinner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        z-index: 9999;
+      }
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      body:not(.loaded) .onebox {
+        opacity: 0;
+      }
+      body.loaded .loading-spinner {
+        display: none;
+      }
+      body.loaded .onebox {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+      .skip-link:focus {
+        top: 6px !important;
+      }
+    </style>
+
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.youtube.com https://www.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: http:; frame-src https://www.youtube.com https://www.google.com; connect-src 'self' https:;"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="geolocation=(), microphone=(), camera=()"
+    />
+
+    <!-- Structured Data for Local Business -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AutomotiveBusiness",
+        "name": "Super P Used Cars",
+        "description": "ศูนย์รวมรถยนต์มือสองคุณภาพดี ราคาเป็นธรรม ให้บริการครบวงจร ประสบการณ์กว่า 10 ปี",
+        "image": "{{OG_IMAGE}}",
+        "url": "{{CANONICAL_URL}}",
+        "telephone": "081-619-6377",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "นครปฐม",
+          "addressCountry": "TH"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "13.8199",
+          "longitude": "100.0843"
+        },
+        "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 08:00-18:00",
+        "priceRange": "$$",
+        "sameAs": [
+          "https://www.facebook.com/super.p.used.car/",
+          "https://www.youtube.com/@super-p",
+          "https://www.tiktok.com/@pomsuperp",
+          "https://lin.ee/PYG28d3"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "081-619-6377",
+          "contactType": "customer service",
+          "availableLanguage": ["Thai"]
+        }
+      }
+    </script>
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GA_MEASUREMENT_ID", {
+        page_title: "{{PAGE_TITLE}}",
+        page_location: "{{CANONICAL_URL}}",
+      });
+    </script>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/main.css" as="style" />
+    <link rel="preload" href="js/main.js" as="script" />
+
+    {{ADDITIONAL_HEAD_CONTENT}}
+  </head>
+  <body>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" aria-label="กำลังโหลด..."></div>
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main" class="skip-link">ข้ามไปเนื้อหาหลัก</a>
+
+    <!-- Navigation -->
+    <nav id="menu" aria-label="Main Navigation" role="navigation">
+      <a href="index.html">🏠 หน้าหลัก</a>
+      <a href="aboutus.html">👥 เกี่ยวกับเรา</a>
+      <a href="youtubeg.html">🎬 วิดีโอ YouTube</a>
+      <a
+        href="https://www.one2car.com/superp"
+        target="_blank"
+        rel="noopener noreferrer"
+        >🚗 รถในสต็อก</a
+      >
+    </nav>
+
+    <div class="onebox">
+      <!-- Header -->
+      <header role="banner">
+        <button
+          id="menu-btn"
+          aria-label="เปิด/ปิดเมนู"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <img
+          src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
+          alt="Super P Used Cars - ศูนย์รวมรถยนต์มือสองคุณภาพดี"
+          loading="eager"
+          width="800"
+          height="200"
+        />
+      </header>
+
+      <!-- Social Media Links -->
+      <div class="socials" role="complementary" aria-label="ลิงก์โซเชียลมีเดีย">
+        <a
+          href="https://lin.ee/PYG28d3"
+          class="line"
+          aria-label="LINE Official Account"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-line" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.facebook.com/super.p.used.car/"
+          class="facebook"
+          aria-label="Facebook Page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-facebook-f" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.tiktok.com/@pomsuperp"
+          class="tiktok"
+          aria-label="TikTok Channel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-tiktok" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.youtube.com/@super-p"
+          class="youtube"
+          aria-label="YouTube Channel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-youtube" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
+          class="map"
+          aria-label="Google Maps Location"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Main Content -->
+      <main id="main" role="main">{{MAIN_CONTENT}}</main>
+
+      <!-- Footer -->
+      <footer role="contentinfo">
+        <div class="handwritten-footer">🏢 © 2025 Super P Used Cars 🚗</div>
+        <div class="handwritten-contact">📞 ติดต่อ: 081‑619‑6377 (👨‍💼 ปอม)</div>
+        <div class="footer-line2">
+          ⭐ All rights reserved | Powered By GTR 🏅
+        </div>
+        <div
+          class="footer-socials"
+          role="complementary"
+          aria-label="ลิงก์โซเชียลมีเดียในส่วนท้าย"
+        >
+          <a
+            href="https://lin.ee/PYG28d3"
+            class="line"
+            aria-label="LINE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-line" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://www.facebook.com/super.p.used.car/"
+            class="facebook"
+            aria-label="Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@pomsuperp"
+            class="tiktok"
+            aria-label="TikTok"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-tiktok" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://www.youtube.com/@super-p"
+            class="youtube"
+            aria-label="YouTube"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-youtube" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
+            class="map"
+            aria-label="Google Maps"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    {{POPUP_CONTENT}}
+
+    <!-- Main JavaScript -->
+    <script src="js/main.js" defer></script>
+
+    {{ADDITIONAL_SCRIPTS}}
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function (error) {
+            console.log("ServiceWorker registration failed: ", error);
+          });
+        });
+      }
+    </script>
+
+    <!-- Performance monitoring -->
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          const perfData = performance.getEntriesByType("navigation")[0];
+          if (perfData) {
+            gtag("event", "page_load_time", {
+              event_category: "Performance",
+              event_label: "Load Time",
+              value: Math.round(perfData.loadEventEnd - perfData.fetchStart),
+            });
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
