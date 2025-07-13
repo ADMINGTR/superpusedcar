@@ -1,537 +1,1254 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Super P Used Cars</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #001f3f;
-      display: flex;
-      justify-content: center;
-      padding: 80px 20px 20px;
-      color: #e0e7ff;
-      min-height: 100vh;
-    }
-    .onebox {
-      width: 100%;
-      max-width: 720px;
-      background: #002e5d;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-      position: relative;
-    }
-    header img {
-      width: 100%;
-      height: auto;
-      max-height: 180px;
-      object-fit: contain;
-      filter: brightness(0.85);
-      display: block;
-    }
-
-    /* Hamburger menu */
-    #menu-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 35px;
-      height: 32px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: transparent;
-      border: none;
-      z-index: 999;
-    }
-    #menu-btn span {
-      display: block;
-      width: 100%;
-      height: 4px;
-      background: #fff;
-      border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-    #menu-btn.open span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    #menu-btn.open span:nth-child(2) {
-      opacity: 0;
-    }
-    #menu-btn.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 70%;
-      max-width: 250px;
-      height: 100%;
-      background: rgba(0, 0, 64, 0.95);
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      padding-top: 80px;
-      display: flex;
-      flex-direction: column;
-      z-index: 998;
-    }
-    nav.open {
-      transform: translateX(0);
-    }
-    nav a {
-      color: #dce6ff;
-      padding: 15px 20px;
-      font-weight: 600;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    nav a:last-child {
-      border-bottom: none;
-    }
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    main {
-      display: flex;
-      justify-content: center;
-      padding: 30px 15px;
-    }
-    .main-content {
-      width: 100%;
-      max-width: 720px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-    }
-    .flash-sale-banner a {
-      display: inline-block;
-      padding: 12px 20px;
-      background: linear-gradient(90deg, #ff5f6d, #ffc371);
-      color: #001f3f;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(255, 95, 109, 0.6);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .flash-sale-banner a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 14px rgba(255, 95, 109, 0.8);
-    }
-
-    /* Stylish About Us Section */
-    .about-section {
-      position: relative;
-      background: linear-gradient(135deg, #004a99, #001f3f);
-      border-radius: 14px;
-      padding: 25px 30px;
-      color: #f0f8ff;
-      box-shadow: 0 6px 20px rgba(0, 76, 153, 0.8);
-      width: 100%;
-      font-weight: 600;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      overflow: hidden;
-      text-align: left;
-      border: 2px solid #3fa9f5;
-    }
-    .about-section h2 {
-      color: #ffd166;
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 8px #ffd166aa;
-      font-weight: 900;
-      text-transform: uppercase;
-      font-family: 'Segoe UI Black', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      position: relative;
-      z-index: 2;
-    }
-    .about-section p {
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 2;
-    }
-    .about-section a {
-      color: #69b3ff;
-      font-weight: 700;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      position: relative;
-      z-index: 2;
-    }
-    .about-section a:hover {
-      color: #a0d1ff;
-      text-decoration: underline;
-    }
-
-    /* Subtle car-themed background pattern using SVG (stylized car icon shapes) */
-    .about-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -40px;
-      right: -40px;
-      bottom: 0;
-      background: url('data:image/svg+xml;utf8,<svg fill="%230055aa" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M16 48h32l4-12H12z"/></svg>') repeat-x;
-      background-size: 64px 64px;
-      opacity: 0.1;
-      z-index: 1;
-      transform: translateY(10px);
-    }
-
-    /* Google map iframe */
-    .map-section {
-      width: 100%;
-    }
-    .map-container {
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-    }
-    .map-section iframe {
-      width: 100%;
-      height: 320px;
-      border: none;
-      display: block;
-    }
-
-    .map-thumbnails {
-      display: flex;
-      gap: 10px;
-      flex-wrap: nowrap;
-      justify-content: center;
-      margin-top: 12px;
-    }
-    .map-thumbnail {
-      width: 150px;
-      height: 146px;
-      border-radius: 4px;
-      cursor: pointer;
-      box-shadow: 0 0 6px rgba(72, 118, 255, 0.7);
-      object-fit: cover;
-      border: 2px solid transparent;
-      transition: border-color 0.3s;
-    }
-    .map-thumbnail:focus,
-    .map-thumbnail:hover {
-      border-color: #4876ff;
-      outline: none;
-    }
-
-    .line-contact a {
-      display: inline-block;
-      padding: 10px 18px;
-      background-color: #00c300;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: transform 0.2s, background-color 0.2s;
-    }
-    .line-contact a:hover {
-      transform: scale(1.05);
-      background-color: #00a000;
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 20px 0;
-    }
-    .socials a {
-      width: 46px;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      font-size: 22px;
-      box-shadow: 0 0 6px rgba(72, 118, 255, 0.7);
-      color: white;
-      text-decoration: none;
-    }
-    .facebook {
-      background: #3b5998;
-    }
-    .tiktok {
-      background: #000;
-    }
-    .youtube {
-      background: #ff0000;
-    }
-    .line {
-      background: #00c300;
-    }
-    .map {
-      background: #34a853;
-    }
-    .socials a:hover {
-      transform: scale(1.15);
-      filter: brightness(1.3);
-    }
-
-    footer {
-      text-align: center;
-      font-size: 13px;
-      background: #001f3f;
-      color: #a3bffa;
-      padding: 20px;
-    }
-
-    /* Popup */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 997;
-    }
-    .popup-overlay.active {
-      display: flex;
-    }
-    .popup-content {
-      background: #003366;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 90vw;
-      max-height: 90vh;
-      text-align: center;
-      position: relative;
-    }
-    .popup-content img {
-      max-width: 100%;
-      max-height: 80vh;
-      border-radius: 8px;
-      object-fit: contain;
-    }
-    .popup-close {
-      margin-top: 15px;
-      background: #0059b3;
-      color: #e0e7ff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .popup-close:hover {
-      background: #007bff;
-    }
-
-    @media (max-width: 768px) {
-      .map-section iframe {
-        height: 220px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>About Us - Super P Used Cars</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;600;700&family=Dancing+Script:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      .about-section {
-        padding: 20px 20px 18px;
-        font-size: 1rem;
+      body {
+        font-family: "Kalam", "Segoe UI", Tahoma, sans-serif;
+        background: #001f3f;
+        display: flex;
+        justify-content: center;
+        padding: 80px 20px 20px;
+        color: #e0e7ff;
+        min-height: 100vh;
       }
-    }
-    @media (max-width: 400px) {
+      .onebox {
+        width: 100%;
+        max-width: 720px;
+        background: #002e5d;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        position: relative;
+      }
+      header img {
+        width: 100%;
+        height: auto;
+        max-height: 180px;
+        object-fit: contain;
+        filter: brightness(0.85);
+      }
+
+      /* Hamburger button */
+      #menu-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 35px;
+        height: 32px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: transparent;
+        border: none;
+        z-index: 999;
+      }
+      #menu-btn span {
+        display: block;
+        width: 100%;
+        height: 4px;
+        background: #fff;
+        border-radius: 2px;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      #menu-btn.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      #menu-btn.open span:nth-child(2) {
+        opacity: 0;
+      }
+      #menu-btn.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        max-width: 250px;
+        height: 100%;
+        background: rgba(0, 0, 64, 0.95);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        padding-top: 80px;
+        display: flex;
+        flex-direction: column;
+        z-index: 998;
+      }
+      nav.open {
+        transform: translateX(0);
+      }
+      nav a {
+        color: #dce6ff;
+        padding: 15px 20px;
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      nav a:last-child {
+        border-bottom: none;
+      }
+      nav a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      main {
+        display: flex;
+        justify-content: center;
+        padding: 30px 15px;
+      }
+      .main-content {
+        width: 100%;
+        max-width: 720px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
       .flash-sale-banner a {
-        font-size: 14px;
-        padding: 10px 16px;
+        display: inline-block;
+        padding: 12px 20px;
+        background: linear-gradient(90deg, #ff5f6d, #ffc371);
+        color: #001f3f;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(255, 95, 109, 0.6);
+        transition: transform 0.2s, box-shadow 0.2s;
       }
+      .flash-sale-banner a:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 14px rgba(255, 95, 109, 0.8);
+      }
+
+      /* Stylish About Us Section */
       .about-section {
-        font-size: 0.95rem;
+        position: relative;
+        background: linear-gradient(135deg, #004a99, #001f3f);
+        border-radius: 14px;
+        padding: 25px 30px;
+        color: #f0f8ff;
+        box-shadow: 0 6px 20px rgba(0, 76, 153, 0.8);
+        width: 100%;
+        font-weight: 600;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        overflow: hidden;
+        text-align: left;
+        border: 2px solid #3fa9f5;
       }
-    }
-  </style>
-</head>
-<body>
-  <button id="menu-btn" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+      .about-section h2 {
+        color: #ffd166;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        letter-spacing: 1.5px;
+        text-shadow: 0 0 8px #ffd166aa;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-family: "Segoe UI Black", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+        position: relative;
+        z-index: 2;
+      }
+      .about-section p {
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+      }
+      .about-section a {
+        color: #69b3ff;
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        position: relative;
+        z-index: 2;
+      }
+      .about-section a:hover {
+        color: #a0d1ff;
+        text-decoration: underline;
+      }
 
-  <nav id="menu" aria-label="Main Navigation">
-    <a href="index.html">Home</a>
-    <a href="aboutus.html">About Us</a>
-    <a href="youtubeg.html">วิดีโอ YouTube</a>
-    <a href="https://www.one2car.com/superp" target="_blank" rel="noopener">In Stocks</a>
-  </nav>
+      /* Subtle car-themed background pattern using SVG (stylized car icon shapes) */
+      .about-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -40px;
+        right: -40px;
+        bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg fill="%230055aa" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M16 48h32l4-12H12z"/></svg>')
+          repeat-x;
+        background-size: 64px 64px;
+        opacity: 0.1;
+        z-index: 1;
+        transform: translateY(10px);
+      }
 
-  <div class="onebox">
-    <header>
-      <img
-        src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
-        alt="Super P Used Cars Banner"
-      />
-    </header>
+      /* Google map iframe */
+      .map-section {
+        width: 100%;
+      }
+      .map-container {
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      }
+      .map-section iframe {
+        width: 100%;
+        height: 320px;
+        border: none;
+        display: block;
+      }
 
-    <div class="socials">
-      <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"><i class="fab fa-line"></i></a>
-      <a href="https://www.facebook.com/super.p.used.car/" class="facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://www.tiktok.com/@pomsuperp" class="tiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-      <a href="https://www.youtube.com/@super-p" class="youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6" class="map" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
-    </div>
+      .map-thumbnails {
+        display: flex;
+        gap: 10px;
+        flex-wrap: nowrap;
+        justify-content: center;
+        margin-top: 12px;
+      }
+      .map-thumbnail {
+        width: 150px;
+        height: 146px;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 0 6px rgba(72, 118, 255, 0.7);
+        object-fit: cover;
+        border: 2px solid transparent;
+        transition: border-color 0.3s;
+      }
+      .map-thumbnail:focus,
+      .map-thumbnail:hover {
+        border-color: #4876ff;
+        outline: none;
+      }
 
-    <main>
-      <div class="main-content">
-        <div class="flash-sale-banner">
-          <a href="https://www.one2car.com/dealer/superp" target="_blank" rel="noopener noreferrer">
-            Flash Sale! ลดราคาพิเศษวันนี้เท่านั้น
-          </a>
-        </div>
+      .line-contact a {
+        display: inline-block;
+        padding: 10px 18px;
+        background-color: #00c300;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: transform 0.2s, background-color 0.2s;
+      }
+      .line-contact a:hover {
+        transform: scale(1.05);
+        background-color: #00a000;
+      }
 
-        <section class="about-section">
-          <h2>About Us</h2>
-          <p>
-            Super P Used Cars – ไม่ต้องเดาว่าคุณจะซื้ออะไร!<br />
-            มีคำถาม? โทรหา ป้อม: 081-619-6377
-          </p>
-          <p>
-            ⚡
-            <a href="https://lin.ee/2lnS5eZ" target="_blank" rel="noopener noreferrer"
-              >คลิกที่นี่สำหรับรูปเพิ่มเติม ที่ตั้ง และรายละเอียด</a
-            ><br />
-            ⚡
-            <a href="https://youtube.com/channel/UCewXwgUpA5rnfn94VGpvrdg" target="_blank" rel="noopener noreferrer"
-              >ชมรีวิวรถยนต์เพิ่มเติมของเราใน YouTube</a
-            >
-          </p>
-          <p>
-            ด้วยประสบการณ์มากกว่า <strong>30 ปี</strong> ในธุรกิจรถมือสอง,<br />
-            เรายังคงมุ่งมั่นในการมอบคุณภาพและบริการที่ดีเยี่ยม
-          </p>
-        </section>
+      /* Contact Us Section */
+      .contact-us-section {
+        margin: 40px auto;
+        max-width: 450px;
+        padding: 25px 20px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 31, 63, 0.9),
+          rgba(0, 46, 93, 0.9)
+        );
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        border: 2px solid rgba(79, 172, 254, 0.3);
+      }
 
-        <section class="map-section" aria-label="Google Maps Location">
-          <div class="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.3012605605336!2d100.61430927602798!3d13.807106796380736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29a52ac1b8783%3A0x4700ec458563ddb9!2z4Lij4Liy4Liy4Lih4LiZ4LmI4Lie4Lij4LmM4Lij4Lih4LiZ4Liy4LmA4Lin4LiW4Lit4Liy4Lii4LmJ4LiX4LmB!5e0!3m2!1sth!2sth!4v1685892107462!5m2!1sth!2sth"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Google Map Location"
-            ></iframe>
+      .contact-title {
+        text-align: center;
+        color: #ffd700;
+        font-family: "Dancing Script", cursive;
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
 
-            <div class="map-thumbnails">
-              <img
-                src="images/map2.jpg"
-                alt="Location Map Image 1"
-                class="map-thumbnail"
-                id="mapThumbnail1"
-                tabindex="0"
-                role="button"
-                aria-label="Open large map image 1"
-              />
-              <img
-                src="images/map2.jpg"
-                alt="Location Map Image 2"
-                class="map-thumbnail"
-                id="mapThumbnail2"
-                tabindex="0"
-                role="button"
-                aria-label="Open large map image 2"
-              />
-            </div>
-          </div>
-        </section>
+      .contact-content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
 
-        <div class="line-contact">
-          <a href="https://lin.ee/2lnS5eZ" target="_blank" rel="noopener noreferrer">ติดต่อผ่าน LINE</a>
-        </div>
+      .contact-box {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(145deg, #004080, #0056b3);
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(79, 172, 254, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .contact-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 86, 179, 0.4);
+        border-color: rgba(79, 172, 254, 0.6);
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: white;
+        margin-right: 15px;
+        background: linear-gradient(45deg, #007bff, #0056b3);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+      }
+
+      .line-contact-box .contact-icon {
+        background: #00c300;
+        box-shadow: 0 4px 15px rgba(0, 195, 0, 0.3);
+      }
+
+      .contact-info {
+        flex: 1;
+      }
+
+      .contact-label {
+        font-size: 14px;
+        color: #a3c9ff;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .contact-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: "Caveat", cursive;
+      }
+
+      .line-contact-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #00c300;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 195, 0, 0.3);
+      }
+
+      .line-contact-btn:hover {
+        background: #00a300;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 195, 0, 0.4);
+      }
+
+      /* QR Section */
+      .qr-section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin: 40px auto;
+        max-width: 450px;
+        padding: 30px 20px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 51, 102, 0.9),
+          rgba(0, 47, 93, 0.9)
+        );
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        border: 2px solid rgba(79, 172, 254, 0.3);
+      }
+
+      .qr-section-title {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #ffd700;
+        font-family: "Dancing Script", cursive;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        0% {
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+            0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        100% {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7),
+            0 0 25px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      .qr-box {
+        background: linear-gradient(145deg, #004080, #0056b3);
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        padding: 20px 15px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(79, 172, 254, 0.2);
+      }
+
+      .qr-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .qr-box:hover::before {
+        left: 100%;
+      }
+
+      .qr-box:hover {
+        transform: translateY(-8px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(0, 86, 179, 0.4),
+          0 0 30px rgba(79, 172, 254, 0.3);
+        border-color: rgba(79, 172, 254, 0.6);
+      }
+
+      .qr-box img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        border-radius: 12px;
+        background: white;
+        padding: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .qr-box:hover img {
+        transform: scale(1.1);
+      }
+
+      .qr-box div {
+        margin-top: 15px;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 16px;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        letter-spacing: 1px;
+      }
+
+      .qr-box .qr-icon {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .qr-box[data-platform="line"] .qr-icon {
+        background: #00c300;
+      }
+
+      .qr-box[data-platform="tiktok"] .qr-icon {
+        background: #000000;
+      }
+
+      .qr-box[data-platform="youtube"] .qr-icon {
+        background: #ff0000;
+      }
+
+      .qr-box[data-platform="maps"] .qr-icon {
+        background: #34a853;
+      }
+
+      .qr-instruction {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #a3c9ff;
+        font-size: 14px;
+        margin-top: 10px;
+        font-style: italic;
+        opacity: 0.8;
+      }
+
+      /* Enhanced QR popup */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 997;
+        backdrop-filter: blur(8px);
+        animation: fadeIn 0.3s ease-out;
+      }
+      .popup-overlay.active {
+        display: flex;
+      }
+      .popup-content {
+        background: linear-gradient(135deg, #001f3f, #003366);
+        padding: 35px;
+        border-radius: 20px;
+        max-width: 90vw;
+        max-height: 90vh;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(79, 172, 254, 0.3);
+        animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px) scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .popup-content::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #4facfe, #00f2fe, #4facfe);
+        border-radius: 20px;
+        z-index: -1;
+        animation: borderGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes borderGlow {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .popup-content img {
+        max-width: 350px;
+        max-height: 350px;
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        background: white;
+        padding: 15px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+      }
+
+      .popup-title {
+        color: #ffd700;
+        font-family: "Dancing Script", cursive;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .popup-description {
+        color: #a3c9ff;
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .popup-close {
+        margin-top: 20px;
+        background: linear-gradient(45deg, #007bff, #0056b3);
+        color: #ffffff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
+      }
+      .popup-close:hover {
+        background: linear-gradient(45deg, #0056b3, #007bff);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 20px rgba(0, 123, 255, 0.4);
+      }
+
+      .socials {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .socials a {
+        width: 46px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 22px;
+        box-shadow: 0 0 6px rgba(72, 118, 255, 0.7);
+        color: white;
+        text-decoration: none;
+      }
+      .facebook {
+        background: #3b5998;
+      }
+      .tiktok {
+        background: #000;
+      }
+      .youtube {
+        background: #ff0000;
+      }
+      .line {
+        background: #00c300;
+      }
+      .map {
+        background: #34a853;
+      }
+      .socials a:hover {
+        transform: scale(1.15);
+        filter: brightness(1.3);
+      }
+
+      footer {
+        text-align: center;
+        font-size: 16px;
+        background: #001f3f;
+        color: #a3bffa;
+        padding: 25px;
+        font-family: "Dancing Script", cursive;
+        font-weight: 600;
+      }
+
+      .handwritten-footer {
+        font-family: "Dancing Script", cursive;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffd700;
+        text-shadow: 2px 2px 0px #ff6b6b, 4px 4px 0px rgba(255, 107, 107, 0.7),
+          6px 6px 10px rgba(0, 0, 0, 0.5);
+        transform: rotate(-1deg);
+        animation: handwrittenGlow 3s ease-in-out infinite alternate;
+        line-height: 1.6;
+        letter-spacing: 1px;
+      }
+
+      .handwritten-contact {
+        font-family: "Caveat", cursive;
+        font-size: 18px;
+        font-weight: 600;
+        color: #82aaff;
+        text-shadow: 1px 1px 0px #4c6ef5, 2px 2px 0px rgba(76, 110, 245, 0.6),
+          3px 3px 8px rgba(0, 0, 0, 0.4);
+        transform: rotate(0.5deg);
+        animation: contactPulse 2s ease-in-out infinite alternate;
+        margin-top: 8px;
+        letter-spacing: 0.5px;
+      }
+
+      @keyframes handwrittenGlow {
+        0% {
+          text-shadow: 2px 2px 0px #ff6b6b, 4px 4px 0px rgba(255, 107, 107, 0.7),
+            6px 6px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3);
+          transform: rotate(-1deg) scale(1);
+        }
+        100% {
+          text-shadow: 2px 2px 0px #ff4757, 4px 4px 0px rgba(255, 71, 87, 0.8),
+            6px 6px 15px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.6);
+          transform: rotate(-0.5deg) scale(1.02);
+        }
+      }
+
+      @keyframes contactPulse {
+        0% {
+          text-shadow: 1px 1px 0px #4c6ef5, 2px 2px 0px rgba(76, 110, 245, 0.6),
+            3px 3px 8px rgba(0, 0, 0, 0.4), 0 0 15px rgba(130, 170, 255, 0.3);
+          transform: rotate(0.5deg);
+        }
+        100% {
+          text-shadow: 1px 1px 0px #5a7cfa, 2px 2px 0px rgba(90, 124, 250, 0.7),
+            3px 3px 12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(130, 170, 255, 0.5);
+          transform: rotate(1deg);
+        }
+      }
+
+      .footer-line2 {
+        font-family: "Kalam", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: #9ca3af;
+        margin-top: 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .footer-socials {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .footer-socials a {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer-socials .facebook {
+        background: #3b5998;
+      }
+      .footer-socials .tiktok {
+        background: #000;
+      }
+      .footer-socials .youtube {
+        background: #ff0000;
+      }
+      .footer-socials .line {
+        background: #00c300;
+      }
+      .footer-socials .map {
+        background: #34a853;
+      }
+
+      .footer-socials a:hover {
+        transform: scale(1.2) translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Modern Responsive Design - Fluid Scaling */
+      body {
+        padding: clamp(40px, 8vw, 100px) clamp(10px, 3vw, 40px) clamp(10px, 3vw, 40px) !important;
+      }
+
+      .onebox {
+        max-width: clamp(300px, 90vw, 800px) !important;
+      }
+
+      .map-section iframe {
+        height: clamp(220px, 35vw, 350px) !important;
+      }
+
+      .about-section {
+        padding: clamp(18px, 4vw, 30px) clamp(15px, 4vw, 25px) !important;
+        font-size: clamp(0.95rem, 2.5vw, 1.1rem) !important;
+      }
+
+      .flash-sale-banner a {
+        font-size: clamp(14px, 3vw, 18px) !important;
+        padding: clamp(10px, 2.5vw, 16px) clamp(16px, 4vw, 24px) !important;
+      }
+
+      /* Minimal media queries for edge cases only */
+      @media (max-width: 320px) {
+        .about-section {
+          font-size: 0.9rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="menu" aria-label="Main Navigation">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="youtubeg.html">วิดีโอ YouTube</a>
+      <a href="https://www.one2car.com/superp" target="_blank" rel="noopener"
+        >In Stocks</a
+      >
+    </nav>
+
+    <div class="onebox">
+      <header>
+        <button id="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <img
+          src="https://yt3.googleusercontent.com/pMWqMzZvYnArr-E0GZhYjEL-sdjNKj4UE-PQ2O3gyK0SOj0HfyLeVZA_qRXf7geF7JD5YbdsuA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
+          alt="Super P Used Cars Banner"
+        />
+      </header>
+
+      <div class="socials">
+        <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"
+          ><i class="fab fa-line"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/super.p.used.car/"
+          class="facebook"
+          aria-label="Facebook"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a
+          href="https://www.tiktok.com/@pomsuperp"
+          class="tiktok"
+          aria-label="TikTok"
+          ><i class="fab fa-tiktok"></i
+        ></a>
+        <a
+          href="https://www.youtube.com/@super-p"
+          class="youtube"
+          aria-label="YouTube"
+          ><i class="fab fa-youtube"></i
+        ></a>
+        <a
+          href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
+          class="map"
+          aria-label="Google Maps"
+          ><i class="fas fa-map-marker-alt"></i
+        ></a>
       </div>
-    </main>
 
-    <footer>
-      &copy; 2025 Super P Used Cars<br />
-      ติดต่อ:
-      <a href="tel:0816196377" style="color: #82aaff;">081‑619‑6377 (ปอม)</a>
-    </footer>
-  </div>
+      <main>
+        <div class="main-content">
+          <div class="flash-sale-banner">
+            <a
+              href="https://www.one2car.com/dealer/superp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Flash Sale! ลดราคาพิเศษวันนี้เท่านั้น
+            </a>
+          </div>
 
-  <div class="popup-overlay" id="imagePopup" aria-hidden="true">
-    <div class="popup-content" role="dialog" aria-modal="true">
-      <img src="images/map2.jpg" alt="Large Map Image" id="popupImage" />
-      <button class="popup-close" id="closePopup">ปิด</button>
+          <section class="about-section">
+            <h2>🏢 About Us - เกี่ยวกับเรา</h2>
+            <p>
+              🚗 Super P Used Cars – ไม่ต้องเดาว่าคุณจะซื้ออะไร! 🎯<br />
+              💬 มีคำถาม? โทรหา 👨‍💼 ป้อม: 📞 081-619-6377
+            </p>
+            <p>
+              ⚡
+              <a
+                href="https://lin.ee/2lnS5eZ"
+                target="_blank"
+                rel="noopener noreferrer"
+                >🖼️ คลิกที่นี่สำหรับรูปเพิ่มเติม ที่ตั้ง และรายละเอียด 📍</a
+              ><br />
+              ⚡
+              <a
+                href="https://youtube.com/channel/UCewXwgUpA5rnfn94VGpvrdg"
+                target="_blank"
+                rel="noopener noreferrer"
+                >🎬 ชมรีวิวรถยนต์เพิ่มเติมของเราใน YouTube 📺</a
+              >
+            </p>
+            <p>
+              🏆 ด้วยประสบการณ์มากกว่า
+              <strong>⭐ 30 ปี</strong> ในธุรกิจรถมือสอง 🛣️,<br />
+              ✨ เรายังคงมุ่งมั่นในการมอบคุณภาพและบริการที่ดีเยี่ยม 🔧
+            </p>
+          </section>
+
+          <section class="map-section" aria-label="Google Maps Location">
+            <div class="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.3012605605336!2d100.61430927602798!3d13.807106796380736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29a52ac1b8783%3A0x4700ec458563ddb9!2z4Lij4Liy4Liy4Lih4LiZ4LmI4Lie4Lij4LmM4Lij4Lih4LiZ4Liy4LmA4Lin4LiW4Lit4Liy4Lii4LmJ4LiX4LmB!5e0!3m2!1sth!2sth!4v1685892107462!5m2!1sth!2sth"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Google Map Location"
+              ></iframe>
+
+              <div class="map-thumbnails">
+                <img
+                  src="images/map2.jpg"
+                  alt="Location Map Image 1"
+                  class="map-thumbnail"
+                  id="mapThumbnail1"
+                  tabindex="0"
+                  role="button"
+                  aria-label="Open large map image 1"
+                />
+                <img
+                  src="images/map2.jpg"
+                  alt="Location Map Image 2"
+                  class="map-thumbnail"
+                  id="mapThumbnail2"
+                  tabindex="0"
+                  role="button"
+                  aria-label="Open large map image 2"
+                />
+              </div>
+            </div>
+          </section>
+
+          <div class="line-contact">
+            <a
+              href="https://lin.ee/2lnS5eZ"
+              target="_blank"
+              rel="noopener noreferrer"
+              >ติดต่อผ่าน LINE</a
+            >
+          </div>
+
+          <!-- Contact Us Section -->
+          <section class="contact-us-section">
+            <div class="contact-title">📞 Contact Us - ติดต่อเรา 💬</div>
+            <div class="contact-content">
+              <div class="contact-box">
+                <div class="contact-icon">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-info">
+                  <div class="contact-label">📱 โทรศัพท์</div>
+                  <div class="contact-value">📞 081-619-6377 (👨‍💼 ปอม)</div>
+                </div>
+              </div>
+              <div class="contact-box line-contact-box">
+                <div class="contact-icon">
+                  <i class="fab fa-line"></i>
+                </div>
+                <div class="contact-info">
+                  <div class="contact-label">💚 ติดต่อผ่าน LINE</div>
+                  <a
+                    href="https://lin.ee/PYG28d3"
+                    class="line-contact-btn"
+                    target="_blank"
+                  >
+                    <i class="fab fa-line"></i>
+                    ➕ Add Friend
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- QR Codes Section -->
+          <section class="qr-section">
+            <div class="qr-section-title">📱 สแกน QR เพื่อติดตาม 🔗</div>
+            <div
+              class="qr-box"
+              data-platform="line"
+              data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://lin.ee/PYG28d3"
+            >
+              <div class="qr-icon">
+                <i class="fab fa-line"></i>
+              </div>
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://lin.ee/PYG28d3"
+                alt="LINE QR Code"
+              />
+              <div>💚 LINE Official</div>
+            </div>
+            <div
+              class="qr-box"
+              data-platform="tiktok"
+              data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.tiktok.com/@pomsuperp"
+            >
+              <div class="qr-icon">
+                <i class="fab fa-tiktok"></i>
+              </div>
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.tiktok.com/@pomsuperp"
+                alt="TikTok QR Code"
+              />
+              <div>🎵 TikTok Videos</div>
+            </div>
+            <div
+              class="qr-box"
+              data-platform="youtube"
+              data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.youtube.com/@super-p"
+            >
+              <div class="qr-icon">
+                <i class="fab fa-youtube"></i>
+              </div>
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.youtube.com/@super-p"
+                alt="YouTube QR Code"
+              />
+              <div>🎬 YouTube Channel</div>
+            </div>
+            <div
+              class="qr-box"
+              data-platform="maps"
+              data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
+            >
+              <div class="qr-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
+                alt="Google Maps QR Code"
+              />
+              <div>🗺️ Our Location</div>
+            </div>
+            <div class="qr-instruction">💡 คลิกเพื่อดู QR Code ขนาดใหญ่ 🔍</div>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        <div class="handwritten-footer">🏢 © 2025 Super P Used Cars 🚗</div>
+        <div class="handwritten-contact">📞 ติดต่อ: 081‑619‑6377 (👨‍💼 ปอม)</div>
+        <div class="footer-line2">
+          ⭐ All rights reserved | Powered By GTR 🏅
+        </div>
+        <div class="footer-socials">
+          <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"
+            ><i class="fab fa-line"></i
+          ></a>
+          <a
+            href="https://www.facebook.com/super.p.used.car/"
+            class="facebook"
+            aria-label="Facebook"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a
+            href="https://www.tiktok.com/@pomsuperp"
+            class="tiktok"
+            aria-label="TikTok"
+            ><i class="fab fa-tiktok"></i
+          ></a>
+          <a
+            href="https://www.youtube.com/@super-p"
+            class="youtube"
+            aria-label="YouTube"
+            ><i class="fab fa-youtube"></i
+          ></a>
+          <a
+            href="https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
+            class="map"
+            aria-label="Google Maps"
+            ><i class="fas fa-map-marker-alt"></i
+          ></a>
+        </div>
+      </footer>
     </div>
-  </div>
 
-  <script>
-    const menuBtn = document.getElementById('menu-btn'),
-      menu = document.getElementById('menu'),
-      mapThumbnail1 = document.getElementById('mapThumbnail1'),
-      mapThumbnail2 = document.getElementById('mapThumbnail2'),
-      imagePopup = document.getElementById('imagePopup'),
-      popupImage = document.getElementById('popupImage'),
-      closePopup = document.getElementById('closePopup');
+    <div class="popup-overlay" id="imagePopup" aria-hidden="true">
+      <div class="popup-content" role="dialog" aria-modal="true">
+        <img src="images/map2.jpg" alt="Large Map Image" id="popupImage" />
+        <button class="popup-close" id="closePopup">ปิด</button>
+      </div>
+    </div>
 
-    menuBtn.addEventListener('click', () => {
-      const open = menuBtn.classList.toggle('open');
-      menu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', open);
-    });
+    <script>
+      const menuBtn = document.getElementById("menu-btn"),
+        menu = document.getElementById("menu"),
+        mapThumbnail1 = document.getElementById("mapThumbnail1"),
+        mapThumbnail2 = document.getElementById("mapThumbnail2"),
+        imagePopup = document.getElementById("imagePopup"),
+        popupImage = document.getElementById("popupImage"),
+        closePopup = document.getElementById("closePopup");
 
-    function openPopup() {
-      imagePopup.classList.add('active');
-      imagePopup.setAttribute('aria-hidden', 'false');
-    }
-    function closePopupFunc() {
-      imagePopup.classList.remove('active');
-      imagePopup.setAttribute('aria-hidden', 'true');
-    }
+      menuBtn.addEventListener("click", () => {
+        const open = menuBtn.classList.toggle("open");
+        menu.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", open);
+      });
 
-    mapThumbnail1.addEventListener('click', () => {
-      popupImage.src = mapThumbnail1.src;
-      openPopup();
-    });
-    mapThumbnail2.addEventListener('click', () => {
-      popupImage.src = mapThumbnail2.src;
-      openPopup();
-    });
+      function openPopup() {
+        imagePopup.classList.add("active");
+        imagePopup.setAttribute("aria-hidden", "false");
+      }
+      function closePopupFunc() {
+        imagePopup.classList.remove("active");
+        imagePopup.setAttribute("aria-hidden", "true");
+      }
 
-    mapThumbnail1.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
+      mapThumbnail1.addEventListener("click", () => {
         popupImage.src = mapThumbnail1.src;
         openPopup();
-      }
-    });
-    mapThumbnail2.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
+      });
+      mapThumbnail2.addEventListener("click", () => {
         popupImage.src = mapThumbnail2.src;
         openPopup();
-      }
-    });
+      });
 
-    closePopup.addEventListener('click', closePopupFunc);
+      mapThumbnail1.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          popupImage.src = mapThumbnail1.src;
+          openPopup();
+        }
+      });
+      mapThumbnail2.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          popupImage.src = mapThumbnail2.src;
+          openPopup();
+        }
+      });
 
-    imagePopup.addEventListener('click', (e) => {
-      if (e.target === imagePopup) {
-        closePopupFunc();
-      }
-    });
+      closePopup.addEventListener("click", closePopupFunc);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
-        closePopupFunc();
+      imagePopup.addEventListener("click", (e) => {
+        if (e.target === imagePopup) {
+          closePopupFunc();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && imagePopup.classList.contains("active")) {
+          closePopupFunc();
+        }
+      });
+
+      // QR Code Popup Functionality
+      const qrBoxes = document.querySelectorAll(".qr-box");
+      const qrPopup = document.getElementById("qrPopup");
+
+      if (qrBoxes.length > 0 && qrPopup) {
+        const qrPopupImg = document.getElementById("qrPopupImage"),
+          qrPopupTitle = document.getElementById("qrPopupTitle"),
+          qrPopupDescription = document.getElementById("qrPopupDescription"),
+          qrPopupClose = document.getElementById("qrPopupClose");
+
+        const qrDescriptions = {
+          line: {
+            title: "📱 LINE Official Account",
+            description: "เพิ่มเพื่อนเพื่อรับข้อมูลข่าวสารและโปรโมชั่นล่าสุด",
+          },
+          tiktok: {
+            title: "🎵 TikTok Channel",
+            description:
+              "ติดตามวิดีโอสั้นรีวิวรถยนต์และเทคนิคการเลือกซื้อรถมือสอง",
+          },
+          youtube: {
+            title: "🎥 YouTube Channel",
+            description:
+              "ชมวิดีโอรีวิวรถยนต์เต็มรูปแบบและคำแนะนำจากผู้เชี่ยวชาญ",
+          },
+          maps: {
+            title: "📍 Google Maps Location",
+            description: "ดูตำแหน่งที่ตั้งของเราและเส้นทางการเดินทาง",
+          },
+        };
+
+        qrBoxes.forEach((box) => {
+          box.addEventListener("click", () => {
+            const platform = box.getAttribute("data-platform");
+            const qrData = qrDescriptions[platform];
+
+            if (qrPopupImg && qrPopupTitle && qrPopupDescription) {
+              qrPopupImg.src = box.getAttribute("data-qr");
+              qrPopupTitle.textContent = qrData.title;
+              qrPopupDescription.textContent = qrData.description;
+
+              qrPopup.classList.add("active");
+              qrPopup.setAttribute("aria-hidden", "false");
+
+              setTimeout(() => {
+                qrPopupImg.style.transform = "scale(1.05)";
+                setTimeout(() => {
+                  qrPopupImg.style.transform = "scale(1)";
+                }, 200);
+              }, 100);
+            }
+          });
+
+          box.addEventListener("mouseenter", () => {
+            box.style.transform = "translateY(-8px) scale(1.05)";
+          });
+
+          box.addEventListener("mouseleave", () => {
+            box.style.transform = "translateY(0) scale(1)";
+          });
+        });
+
+        if (qrPopupClose) {
+          qrPopupClose.addEventListener("click", () => {
+            qrPopup.classList.remove("active");
+            qrPopup.setAttribute("aria-hidden", "true");
+          });
+        }
+
+        qrPopup.addEventListener("click", (e) => {
+          if (e.target === qrPopup && qrPopupClose) qrPopupClose.click();
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            qrPopup.classList.contains("active") &&
+            qrPopupClose
+          )
+            qrPopupClose.click();
+        });
       }
-    });
-  </script>
-</body>
+    </script>
+
+    <!-- QR Popup -->
+    <div class="popup-overlay" id="qrPopup" aria-hidden="true">
+      <div class="popup-content" role="dialog" aria-modal="true">
+        <div class="popup-title" id="qrPopupTitle">📱 QR Code</div>
+        <div class="popup-description" id="qrPopupDescription">
+          สแกน QR Code นี้เพื่อเข้าถึงเนื้อหาของเรา
+        </div>
+        <img src="" alt="QR Code Large" id="qrPopupImage" />
+        <button class="popup-close" id="qrPopupClose">
+          <i class="fas fa-times"></i> ปิด
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
