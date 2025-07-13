@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube API Test - Super P Used Cars</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #001f3f;
+        color: white;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .test-section {
+        background: #002e5d;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .success {
+        border-left: 5px solid #00ff00;
+      }
+      .error {
+        border-left: 5px solid #ff0000;
+      }
+      .warning {
+        border-left: 5px solid #ffc107;
+      }
+      .info {
+        border-left: 5px solid #007bff;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px 5px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .result {
+        background: #000;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+        overflow-x: auto;
+      }
+      pre {
+        margin: 0;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔬 YouTube API Test & Diagnostics</h1>
+    <p>
+      This page will test why the YouTube API is not working and provide
+      solutions.
+    </p>
+
+    <div class="test-section info">
+      <h2>📋 Current Environment</h2>
+      <div id="environment-info"></div>
+    </div>
+
+    <div class="test-section warning">
+      <h2>🚨 Known Issues</h2>
+      <ul>
+        <li>
+          <strong>CORS Restrictions</strong>: YouTube API doesn't work from
+          file:// protocol
+        </li>
+        <li>
+          <strong>API Key Permissions</strong>: API key must have YouTube Data
+          API v3 enabled
+        </li>
+        <li>
+          <strong>Quota Limits</strong>: Google APIs have daily usage limits
+        </li>
+        <li>
+          <strong>Channel ID Format</strong>: Must be a valid YouTube channel ID
+        </li>
+      </ul>
+    </div>
+
+    <div class="test-section">
+      <h2>🧪 API Tests</h2>
+      <button onclick="testBasicFetch()">Test Basic API Connection</button>
+      <button onclick="testChannelInfo()">Test Channel Info</button>
+      <button onclick="testVideoSearch()">Test Video Search</button>
+      <button onclick="showSolutions()">Show Solutions</button>
+
+      <div id="test-results"></div>
+    </div>
+
+    <div class="test-section" id="solutions" style="display: none">
+      <h2>✅ Solutions</h2>
+      <div class="success">
+        <h3>Option 1: Use Local Server</h3>
+        <p>Run your website through a local server:</p>
+        <ul>
+          <li>Install Python: <code>py -m http.server 8000</code></li>
+          <li>Use VS Code Live Server extension</li>
+          <li>Use Node.js: <code>npx serve .</code></li>
+        </ul>
+      </div>
+
+      <div class="success">
+        <h3>Option 2: Upload to Web Hosting</h3>
+        <p>Deploy to any web hosting service:</p>
+        <ul>
+          <li>GitHub Pages (free)</li>
+          <li>Netlify (free)</li>
+          <li>Vercel (free)</li>
+          <li>Your web hosting provider</li>
+        </ul>
+      </div>
+
+      <div class="success">
+        <h3>Option 3: Keep Current Setup</h3>
+        <p>
+          Your current fallback videos work perfectly and look professional!
+        </p>
+        <ul>
+          <li>6 themed videos for your business</li>
+          <li>Professional styling and functionality</li>
+          <li>No API dependencies or quotas</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      // API Configuration
+      const API_KEY = "AIzaSyBijehXSrv0r3QQAIo0Ryt7DboabKT2ZLU";
+      const CHANNEL_ID = "UCewXwgUpA5rnfn94VGpvrdg";
+
+      function showEnvironmentInfo() {
+        const info = document.getElementById("environment-info");
+        info.innerHTML = `
+                <p><strong>Protocol:</strong> ${window.location.protocol}</p>
+                <p><strong>Host:</strong> ${
+                  window.location.host || "N/A (local file)"
+                }</p>
+                <p><strong>Origin:</strong> ${window.location.origin}</p>
+                <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+                <p><strong>CORS Enabled:</strong> ${
+                  window.location.protocol !== "file:"
+                    ? "✅ Yes"
+                    : "❌ No (file:// protocol)"
+                }</p>
+            `;
+      }
+
+      function addResult(title, success, message, details = "") {
+        const results = document.getElementById("test-results");
+        const className = success ? "success" : "error";
+        const icon = success ? "✅" : "❌";
+
+        results.innerHTML += `
+                <div class="test-section ${className}">
+                    <h3>${icon} ${title}</h3>
+                    <p>${message}</p>
+                    ${
+                      details
+                        ? `<div class="result"><pre>${details}</pre></div>`
+                        : ""
+                    }
+                </div>
+            `;
+      }
+
+      async function testBasicFetch() {
+        document.getElementById("test-results").innerHTML =
+          "<p>🔄 Testing...</p>";
+
+        try {
+          if (window.location.protocol === "file:") {
+            addResult(
+              "Basic Connection Test",
+              false,
+              "Cannot test API from file:// protocol due to CORS restrictions.",
+              "Error: CORS policy blocks requests from file:// to external APIs"
+            );
+            return;
+          }
+
+          const url = `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&id=${CHANNEL_ID}&part=snippet`;
+          console.log("Testing URL:", url);
+
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (response.ok) {
+            addResult(
+              "Basic Connection Test",
+              true,
+              "API connection successful!",
+              JSON.stringify(data, null, 2)
+            );
+          } else {
+            addResult(
+              "Basic Connection Test",
+              false,
+              `API Error: ${response.status} - ${response.statusText}`,
+              JSON.stringify(data, null, 2)
+            );
+          }
+        } catch (error) {
+          addResult(
+            "Basic Connection Test",
+            false,
+            "Network or CORS error occurred",
+            error.toString()
+          );
+        }
+      }
+
+      async function testChannelInfo() {
+        try {
+          if (window.location.protocol === "file:") {
+            addResult(
+              "Channel Info Test",
+              false,
+              "Cannot test from file:// protocol",
+              "Need to run from HTTP/HTTPS server"
+            );
+            return;
+          }
+
+          const url = `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&id=${CHANNEL_ID}&part=snippet,statistics`;
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (response.ok && data.items && data.items.length > 0) {
+            const channel = data.items[0];
+            addResult(
+              "Channel Info Test",
+              true,
+              `Found channel: ${channel.snippet.title}`,
+              `Subscribers: ${channel.statistics.subscriberCount}\nVideos: ${channel.statistics.videoCount}\nViews: ${channel.statistics.viewCount}`
+            );
+          } else {
+            addResult(
+              "Channel Info Test",
+              false,
+              "Channel not found or API error",
+              JSON.stringify(data, null, 2)
+            );
+          }
+        } catch (error) {
+          addResult(
+            "Channel Info Test",
+            false,
+            "Error fetching channel info",
+            error.toString()
+          );
+        }
+      }
+
+      async function testVideoSearch() {
+        try {
+          if (window.location.protocol === "file:") {
+            addResult(
+              "Video Search Test",
+              false,
+              "Cannot test from file:// protocol",
+              "CORS policy prevents API calls from local files"
+            );
+            return;
+          }
+
+          const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&type=video&order=date&maxResults=5`;
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (response.ok && data.items) {
+            addResult(
+              "Video Search Test",
+              true,
+              `Found ${data.items.length} videos`,
+              data.items.map((v) => `- ${v.snippet.title}`).join("\n")
+            );
+          } else {
+            addResult(
+              "Video Search Test",
+              false,
+              "Video search failed",
+              JSON.stringify(data, null, 2)
+            );
+          }
+        } catch (error) {
+          addResult(
+            "Video Search Test",
+            false,
+            "Error searching videos",
+            error.toString()
+          );
+        }
+      }
+
+      function showSolutions() {
+        document.getElementById("solutions").style.display = "block";
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        showEnvironmentInfo();
+      });
+    </script>
+  </body>
+</html>

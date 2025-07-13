@@ -503,6 +503,10 @@
         background: #34a853;
       }
 
+      .qr-box[data-platform="facebook"] .qr-icon {
+        background: #1877f2;
+      }
+
       .qr-instruction {
         grid-column: 1 / -1;
         text-align: center;
@@ -632,6 +636,45 @@
         background: linear-gradient(45deg, #0056b3, #007bff);
         transform: translateY(-2px);
         box-shadow: 0 12px 20px rgba(0, 123, 255, 0.4);
+      }
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .popup-download {
+        margin-top: 20px;
+      }
+
+      .popup-download a {
+        display: inline-block;
+        background: linear-gradient(145deg, #28a745, #1e7e34);
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+      }
+
+      .popup-download a:hover {
+        background: linear-gradient(145deg, #1e7e34, #155724);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
       }
 
       .socials {
@@ -815,6 +858,189 @@
           font-size: 0.9rem !important;
         }
       }
+
+      /* YouTube Subscription Section */
+      .youtube-subscription {
+        background: linear-gradient(135deg, #001f3f, #004080, #0056b3);
+        border-radius: 16px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0, 86, 179, 0.4);
+        border: 2px solid rgba(79, 172, 254, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .youtube-subscription::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(79, 172, 254, 0.3),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .youtube-subscription:hover::before {
+        left: 100%;
+      }
+
+      .youtube-subscription h3 {
+        color: #ffd700;
+        font-size: 18px;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: 700;
+      }
+
+      .youtube-subscription p {
+        color: #e0e7ff;
+        font-size: 14px;
+        margin-bottom: 15px;
+        line-height: 1.4;
+      }
+
+      .subscription-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .subscription-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .subscription-btn.subscribe {
+        background: linear-gradient(45deg, #007bff, #0056b3);
+        color: white;
+        border-color: rgba(79, 172, 254, 0.3);
+      }
+
+      .subscription-btn.subscribe:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        background: linear-gradient(45deg, #0056b3, #004080);
+      }
+
+      .subscription-btn.home {
+        background: rgba(255, 215, 0, 0.2);
+        color: #ffd700;
+        border-color: rgba(255, 215, 0, 0.3);
+      }
+
+      .subscription-btn.home:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(255, 215, 0, 0.3);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+      }
+
+      /* Flying Popup Animations */
+      .flying-popup {
+        position: fixed;
+        z-index: 99999;
+        cursor: pointer;
+        pointer-events: auto;
+      }
+
+      .flying-bird {
+        background: linear-gradient(135deg, #ff4444, #ff6666);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 25px;
+        box-shadow: 0 8px 25px rgba(255, 68, 68, 0.6);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 16px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        animation: flyBird 10s linear infinite, birdBob 2s ease-in-out infinite;
+      }
+
+      @keyframes flyBird {
+        0% {
+          top: 20%;
+          left: -200px;
+          transform: rotate(0deg);
+        }
+        25% {
+          top: 60%;
+          left: 25%;
+          transform: rotate(10deg);
+        }
+        50% {
+          top: 30%;
+          left: 50%;
+          transform: rotate(-5deg);
+        }
+        75% {
+          top: 70%;
+          left: 75%;
+          transform: rotate(15deg);
+        }
+        100% {
+          top: 40%;
+          left: 100vw;
+          transform: rotate(0deg);
+        }
+      }
+
+      @keyframes birdBob {
+        0%,
+        100% {
+          transform: translateY(0px) scale(1);
+        }
+        50% {
+          transform: translateY(-8px) scale(1.05);
+        }
+      }
+
+      .flying-popup:hover {
+        animation-play-state: paused;
+        transform: scale(1.1) !important;
+        z-index: 10000;
+      }
+
+      .flying-popup .megaphone-icon {
+        animation: megaphoneShout 2s ease-in-out infinite;
+      }
+
+      @keyframes megaphoneShout {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        25% {
+          transform: scale(1.2) rotate(-5deg);
+        }
+        50% {
+          transform: scale(1.1) rotate(5deg);
+        }
+        75% {
+          transform: scale(1.3) rotate(-3deg);
+        }
+      }
+
+      /* ...existing code... */
     </style>
   </head>
   <body>
@@ -840,7 +1066,7 @@
 
       <div class="socials">
         <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"
-          ><i class="fab fa-line"></i
+          ><i class="fas fa-comment"></i
         ></a>
         <a
           href="https://www.facebook.com/super.p.used.car/"
@@ -966,7 +1192,7 @@
               </div>
               <div class="contact-box line-contact-box">
                 <div class="contact-icon">
-                  <i class="fab fa-line"></i>
+                  <i class="fas fa-comment"></i>
                 </div>
                 <div class="contact-info">
                   <div class="contact-label">💚 ติดต่อผ่าน LINE</div>
@@ -975,7 +1201,7 @@
                     class="line-contact-btn"
                     target="_blank"
                   >
-                    <i class="fab fa-line"></i>
+                    <i class="fas fa-comment"></i>
                     ➕ Add Friend
                   </a>
                 </div>
@@ -992,7 +1218,7 @@
               data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://lin.ee/PYG28d3"
             >
               <div class="qr-icon">
-                <i class="fab fa-line"></i>
+                <i class="fas fa-comment"></i>
               </div>
               <img
                 src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://lin.ee/PYG28d3"
@@ -1030,6 +1256,20 @@
             </div>
             <div
               class="qr-box"
+              data-platform="facebook"
+              data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.facebook.com/super.p.used.car/"
+            >
+              <div class="qr-icon">
+                <i class="fab fa-facebook-f"></i>
+              </div>
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.facebook.com/super.p.used.car/"
+                alt="Facebook QR Code"
+              />
+              <div>📘 Facebook Page</div>
+            </div>
+            <div
+              class="qr-box"
               data-platform="maps"
               data-qr="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://maps.app.goo.gl/u9BJDsmaVCrdqWSk6"
             >
@@ -1044,6 +1284,24 @@
             </div>
             <div class="qr-instruction">💡 คลิกเพื่อดู QR Code ขนาดใหญ่ 🔍</div>
           </section>
+
+          <!-- YouTube Subscription Section -->
+          <div class="youtube-subscription">
+            <h3>🎬 อยากดูวิดีโอเพิ่มเติม?</h3>
+            <p>📺 ติดตาม YouTube Channel ของเราเพื่อดูวิดีโอใหม่ๆ ก่อนใคร!</p>
+            <div class="subscription-buttons">
+              <a
+                href="https://www.youtube.com/@super-p?sub_confirmation=1"
+                class="subscription-btn subscribe"
+                target="_blank"
+              >
+                🔔 Subscribe Now
+              </a>
+              <a href="index.html" class="subscription-btn home">
+                🏠 กลับหน้าหลัก
+              </a>
+            </div>
+          </div>
         </div>
       </main>
 
@@ -1055,7 +1313,7 @@
         </div>
         <div class="footer-socials">
           <a href="https://lin.ee/PYG28d3" class="line" aria-label="LINE"
-            ><i class="fab fa-line"></i
+            ><i class="fas fa-comment"></i
           ></a>
           <a
             href="https://www.facebook.com/super.p.used.car/"
@@ -1155,101 +1413,148 @@
       });
 
       // QR Code Popup Functionality
-      const qrBoxes = document.querySelectorAll(".qr-box");
-      const qrPopup = document.getElementById("qrPopup");
+      function openQRPopup(qrUrl, title, description, platform) {
+        const popup = document.getElementById("qr-popup");
+        const popupTitle = document.getElementById("popup-title");
+        const popupDescription = document.getElementById("popup-description");
+        const popupQR = document.getElementById("popup-qr");
+        const downloadLink = document.getElementById("download-link");
 
-      if (qrBoxes.length > 0 && qrPopup) {
-        const qrPopupImg = document.getElementById("qrPopupImage"),
-          qrPopupTitle = document.getElementById("qrPopupTitle"),
-          qrPopupDescription = document.getElementById("qrPopupDescription"),
-          qrPopupClose = document.getElementById("qrPopupClose");
+        popupTitle.textContent = title;
+        popupDescription.textContent = description;
+        popupQR.src = qrUrl;
+        downloadLink.href = qrUrl;
+        downloadLink.download = `${platform}-qr-code.png`;
 
-        const qrDescriptions = {
+        popup.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeQRPopup() {
+        const popup = document.getElementById("qr-popup");
+        popup.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      // Add click listeners to QR boxes
+      document.addEventListener("DOMContentLoaded", function () {
+        const qrBoxes = document.querySelectorAll(".qr-box");
+
+        const platformInfo = {
           line: {
-            title: "📱 LINE Official Account",
-            description: "เพิ่มเพื่อนเพื่อรับข้อมูลข่าวสารและโปรโมชั่นล่าสุด",
+            title: "� LINE Official Account",
+            description:
+              "สแกนเพื่อเพิ่มเพื่อนกับไลน์อย่างเป็นทางการของเรา รับข่าวสารและข้อมูลรถล่าสุด",
           },
           tiktok: {
             title: "🎵 TikTok Channel",
             description:
-              "ติดตามวิดีโอสั้นรีวิวรถยนต์และเทคนิคการเลือกซื้อรถมือสอง",
+              "สแกนเพื่อติดตาม TikTok ของเรา ดูคลิปสั้นๆ เกี่ยวกับรถยนต์ และเทรนด์ใหม่ๆ",
           },
           youtube: {
-            title: "🎥 YouTube Channel",
+            title: "� YouTube Channel",
             description:
-              "ชมวิดีโอรีวิวรถยนต์เต็มรูปแบบและคำแนะนำจากผู้เชี่ยวชาญ",
+              "สแกนเพื่อติดตามช่อง YouTube ของเรา ดูรีวิวรถ วิธีการดูแลรถ และเนื้อหาเกี่ยวกับรถยนต์",
+          },
+          facebook: {
+            title: "📘 Facebook Fanpage",
+            description:
+              "สแกนเพื่อติดตามเพจ Facebook ของเรา ดูรถคันใหม่ๆ โปรโมชั่น และข่าวสารทั่วไป",
           },
           maps: {
-            title: "📍 Google Maps Location",
-            description: "ดูตำแหน่งที่ตั้งของเราและเส้นทางการเดินทาง",
+            title: "📍 ที่อยู่ร้าน",
+            description:
+              "สแกนเพื่อดูที่อยู่ร้านเรา นำทางมาหาเราได้ง่ายๆ ด้วย Google Maps",
           },
         };
 
         qrBoxes.forEach((box) => {
-          box.addEventListener("click", () => {
-            const platform = box.getAttribute("data-platform");
-            const qrData = qrDescriptions[platform];
+          box.addEventListener("click", function () {
+            const platform = this.getAttribute("data-platform");
+            const qrUrl = this.getAttribute("data-qr");
+            const info = platformInfo[platform];
 
-            if (qrPopupImg && qrPopupTitle && qrPopupDescription) {
-              qrPopupImg.src = box.getAttribute("data-qr");
-              qrPopupTitle.textContent = qrData.title;
-              qrPopupDescription.textContent = qrData.description;
-
-              qrPopup.classList.add("active");
-              qrPopup.setAttribute("aria-hidden", "false");
-
-              setTimeout(() => {
-                qrPopupImg.style.transform = "scale(1.05)";
-                setTimeout(() => {
-                  qrPopupImg.style.transform = "scale(1)";
-                }, 200);
-              }, 100);
+            if (info && qrUrl) {
+              openQRPopup(qrUrl, info.title, info.description, platform);
             }
           });
-
-          box.addEventListener("mouseenter", () => {
-            box.style.transform = "translateY(-8px) scale(1.05)";
-          });
-
-          box.addEventListener("mouseleave", () => {
-            box.style.transform = "translateY(0) scale(1)";
-          });
         });
 
-        if (qrPopupClose) {
-          qrPopupClose.addEventListener("click", () => {
-            qrPopup.classList.remove("active");
-            qrPopup.setAttribute("aria-hidden", "true");
+        // Close popup when clicking outside
+        document
+          .getElementById("qr-popup")
+          .addEventListener("click", function (e) {
+            if (e.target === this) {
+              closeQRPopup();
+            }
           });
-        }
-
-        qrPopup.addEventListener("click", (e) => {
-          if (e.target === qrPopup && qrPopupClose) qrPopupClose.click();
-        });
-
-        document.addEventListener("keydown", (e) => {
-          if (
-            e.key === "Escape" &&
-            qrPopup.classList.contains("active") &&
-            qrPopupClose
-          )
-            qrPopupClose.click();
-        });
-      }
+      });
     </script>
 
-    <!-- QR Popup -->
-    <div class="popup-overlay" id="qrPopup" aria-hidden="true">
-      <div class="popup-content" role="dialog" aria-modal="true">
-        <div class="popup-title" id="qrPopupTitle">📱 QR Code</div>
-        <div class="popup-description" id="qrPopupDescription">
-          สแกน QR Code นี้เพื่อเข้าถึงเนื้อหาของเรา
+    <!-- QR Code Popup -->
+    <div class="popup-overlay" id="qr-popup">
+      <div class="popup-content">
+        <span class="close" onclick="closeQRPopup()">&times;</span>
+        <h3 id="popup-title">QR Code</h3>
+        <p id="popup-description">Scan to connect with us</p>
+        <img id="popup-qr" src="" alt="QR Code" />
+        <div class="popup-download">
+          <a id="download-link" href="" download="qr-code.png">
+            💾 บันทึก QR Code
+          </a>
         </div>
-        <img src="" alt="QR Code Large" id="qrPopupImage" />
-        <button class="popup-close" id="qrPopupClose">
-          <i class="fas fa-times"></i> ปิด
-        </button>
       </div>
     </div>
+
+    <!-- Flying Popups -->
+    <div class="flying-popup flying-bird" id="callPopup" style="display: none">
+      <div class="megaphone-icon">📢</div>
+      <div>
+        <div style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">
+          📞 CALL US NOW!
+        </div>
+        <div style="font-size: 12px; opacity: 0.9; font-weight: bold">
+          🔥 081-619-6377 🔥
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Flying popup click handlers
+      document
+        .getElementById("callPopup")
+        .addEventListener("click", function () {
+          window.location.href = "tel:0816196377";
+        });
+
+      // Random Flying Popup Generator
+      function showFlyingPopup() {
+        const popup = document.getElementById("callPopup");
+        if (popup) {
+          // Random delay between 3-8 seconds
+          const randomDelay = Math.random() * 5000 + 3000;
+
+          setTimeout(() => {
+            popup.style.display = "flex";
+            popup.style.animationPlayState = "running";
+
+            // Hide after 10 seconds (animation duration)
+            setTimeout(() => {
+              popup.style.display = "none";
+              // Schedule next popup
+              showFlyingPopup();
+            }, 10000);
+          }, randomDelay);
+        }
+      }
+
+      // Start the random popup cycle when page loads
+      window.addEventListener("load", () => {
+        // Initial delay before first popup (5-10 seconds)
+        setTimeout(() => {
+          showFlyingPopup();
+        }, Math.random() * 5000 + 5000);
+      });
+    </script>
   </body>
 </html>
