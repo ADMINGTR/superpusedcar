@@ -1,12 +1,11 @@
-# Super P Used Cars Website Documentation
+Super P Used Cars Website Documentation
 
-## Project Overview
-Modern, professional website for Super P Used Cars - a premium used car dealership in Nakhon Pathom, Thailand.
+Project Overview
+Modern, professional website for Super P Used Cars — a premium used car dealership in Nakhon Pathom, Thailand.
 
-## 🏗️ Architecture
+Architecture
 
-### Folder Structure
-```
+Folder Structure
 superpusedcar/
 ├── css/
 │   └── main.css              # Centralized stylesheet
@@ -27,37 +26,36 @@ superpusedcar/
 ├── site.webmanifest          # PWA manifest
 ├── browserconfig.xml         # Microsoft browser config
 └── sw.js                     # Service Worker
-```
 
-## 🎨 Design System
+Design System
 
-### Color Scheme
-- **Primary**: Dark Blue (#001f3f) - Professional, trustworthy
-- **Secondary**: White (#ffffff) - Clean, modern
-- **Accent**: Green (#28a745) - Success, money, growth
-- **Text**: Dark Gray (#333333) - Readable contrast
+Color Scheme
+- Primary: Dark Blue (#001f3f) — Professional, trustworthy
+- Secondary: White (#ffffff) — Clean, modern
+- Accent: Green (#28a745) — Success, money, growth
+- Text: Dark Gray (#333333) — Readable contrast
 
-### Typography
-- **Headings**: Kalam (handwritten feel)
-- **Body**: System fonts for performance
-- **Special Effects**: Caveat, Dancing Script
+Typography
+- Headings: Kalam (handwritten feel)
+- Body: System fonts for performance
+- Special Effects: Caveat, Dancing Script
 
-### Responsive Design
+Responsive Design
 - Mobile-first approach
 - Fluid typography with clamp()
 - Flexible grid system
 - Touch-friendly interactions
 
-## 🚀 Features
+Features
 
-### Security
+Security
 - XSS protection
 - Input sanitization
 - Anti-spam rate limiting
 - Content Security Policy
 - HTTPS enforcement
 
-### SEO Optimization
+SEO Optimization
 - Semantic HTML structure
 - Meta tags optimization
 - Open Graph protocol
@@ -66,14 +64,14 @@ superpusedcar/
 - XML sitemap
 - Robots.txt optimization
 
-### Performance
+Performance
 - Service Worker caching
 - Lazy loading images
 - Critical CSS inlining
 - Font optimization
 - Resource preloading
 
-### Accessibility
+Accessibility
 - ARIA labels
 - Semantic HTML
 - Skip links
@@ -81,137 +79,134 @@ superpusedcar/
 - Screen reader support
 - High contrast support
 
-## 📱 Progressive Web App (PWA)
+Progressive Web App (PWA)
 - Offline support
 - App-like experience
 - Install prompt
 - Service Worker caching
 - Web App Manifest
 
-## 🛠️ Development
+Development
 
-### Prerequisites
+Prerequisites
 - Modern web browser
 - Text editor/IDE
 - Basic understanding of HTML/CSS/JavaScript
 
-### Local Development
-1. Clone/download the project
+Local Development
+1. Clone or download the project
 2. Open in your preferred editor
-3. Use live server for development
-4. Test responsive design
+3. Use live server extensions or python -m http.server to serve locally
+4. Test responsive design across devices
 
-### Deployment
-1. Upload all files to web server
+Deployment
+1. Upload all files to web server or GitHub Pages
 2. Ensure HTTPS is enabled
 3. Configure proper MIME types
-4. Set up gzip compression
-5. Configure cache headers
+4. Enable gzip compression
+5. Set cache headers for assets
 
-## 🔧 Customization
+Customization
 
-### Adding New Pages
+Adding New Pages
 1. Copy template/base.html
 2. Update meta tags and content
 3. Link CSS and JS files
-4. Update navigation menu
-5. Add to sitemap.xml
+4. Update navigation menus
+5. Add page to sitemap.xml
 
-### Modifying Styles
+Modifying Styles
 - Edit css/main.css
-- Use CSS custom properties
-- Maintain responsive design
-- Test across devices
+- Use CSS custom properties for easy theming
+- Maintain responsive and accessible design
+- Test across browsers and devices
 
-### Adding Features
+Adding Features
 - Edit js/main.js
 - Follow security best practices
-- Maintain accessibility
-- Test thoroughly
+- Maintain accessibility standards
+- Test thoroughly before deployment
 
-## 📊 Analytics & Monitoring
+Analytics & Monitoring
 
-### Google Analytics
-- Placeholder integrated in template
+Google Analytics
+- Placeholder integrated in templates
 - Replace with actual tracking ID
 - Set up conversion goals
-- Monitor user behavior
+- Monitor user behavior and traffic
 
-### Performance Monitoring
-- Built-in performance tracking
-- Lighthouse auditing
-- Core Web Vitals monitoring
+Performance Monitoring
+- Lighthouse audits
+- Core Web Vitals tracking
+- Continuous performance reviews
 
-## 🔒 Security Best Practices
+Security Best Practices
 
-### Content Security Policy
+Content Security Policy
 - Strict CSP headers
 - Nonce-based script execution
-- Resource restriction
+- Restrict resource loading to trusted domains
 
-### Data Protection
-- No sensitive data storage
-- Secure form handling
-- GDPR compliance ready
+Data Protection
+- No sensitive data stored client-side
+- Secure form submission handling
+- GDPR compliance considerations
 
-## 🌐 SEO Strategy
+SEO Strategy
 
-### Keywords
+Keywords
 - รถมือสอง (used cars)
 - รถยนต์มือสอง (used vehicles)
 - Super P Used Cars
 - นครปฐม (Nakhon Pathom)
 - รถคุณภาพ (quality cars)
 
-### Content Strategy
+Content Strategy
 - Regular content updates
 - Video content integration
 - Social media integration
 - Local SEO optimization
 
-## 🎯 Business Goals
+Business Goals
 
-### Primary Objectives
+Primary Objectives
 - Generate quality leads
 - Build brand trust
 - Showcase inventory
 - Improve customer engagement
 
-### Success Metrics
+Success Metrics
 - Contact form submissions
 - Phone call conversions
 - Social media engagement
 - YouTube channel growth
 
-## 🛡️ Maintenance
+Maintenance
 
-### Regular Tasks
-- Update content
-- Monitor performance
-- Check security updates
+Regular Tasks
+- Update content regularly
+- Monitor site performance
+- Check for security updates
 - Backup website files
-- Update sitemap
+- Update sitemap periodically
 
-### Security Updates
+Security Updates
 - Monitor vulnerabilities
 - Update dependencies
-- Review access logs
-- Test security headers
+- Review server and access logs
+- Test security headers regularly
 
-## 📞 Support & Contact
+Support & Contact
 
 For technical support or customization requests:
-- Email: [Your Email]
-- Phone: [Your Phone]
-- Documentation: Check this README
+- Email: noreply@myitworld.com.au
+- Documentation: This README
 
-## 📝 License
+License
 
 This project is proprietary to Super P Used Cars. All rights reserved.
 
----
-
-**Last Updated**: January 26, 2025
-**Version**: 2.0.0
-**Author**: AI Assistant
-**Status**: Production Ready
+Last Updated: July 15, 2025  
+Version: 2.0  
+Author: GTR — www.myitworld.com.au  
+Status: In Development
